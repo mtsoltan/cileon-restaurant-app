@@ -1,0 +1,46 @@
+The relevant folders:
+
+* application/config
+* application/controllers
+* application/core
+* application/models
+* application/views
+
+All the other folders inside application are empty.
+
+Full folder tree:
+├───application
+│   ├──|cache
+│   ├───config
+│   ├───controllers
+│   ├───core
+│   ├──|helpers
+│   ├──|hooks
+│   ├──|language
+│   ├──|libraries
+│   ├──|logs
+│   ├───models
+│   ├──|third_party
+│   └───views
+│       ├───errors
+│       │   ├───cli
+│       │   └───html
+│       ├───order
+│       ├───product
+│       ├───settings
+│       ├───templates
+│       └───user
+├───codeignite
+│   ├──>system
+│   └──>user_guide
+└───public
+    └───assets
+        ├───css
+        ├───DataTables
+        │   └───DataTables-1.10.16
+        │       ├───css
+        │       ├───images
+        │       └───js
+        ├───fonts
+        │   └───roboto
+        └───js
