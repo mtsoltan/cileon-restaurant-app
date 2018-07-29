@@ -1,0 +1,38 @@
+# OS Files
+desktop.ini
+Thumbs.db
+
+# Unwanted Folders.
+codeignite/
+public/assets/
+# Sync and backup these folders separately, or use a dependency manager for them in the future.
+
+# Development Files
+.project
+.project/
+.buildpath
+.buildpath/
+.idea
+.idea/
+composer.phar
+nbproject/
+.vagrant/
+.settings/
+
+# Unwanted Extensions
+*.log
+*.sql
+
+
+# Configuration Files
+# The following files are different for each server/developer, and therefore aren't included in the repository.
+# Example files are present in their locations that help us know how they're supposed to look like.
+
+# Environment file. This is supposed to be different across servers used for development / production.
+public/environment.php
+# Configuration file for site base URL, encryption key, and database credentials.
+application/config/private.php
+
+*.production
+# *.production files are used to store production counterparts of private configuration files, used in production.
+# They can be  made by modifying the .example files present.
