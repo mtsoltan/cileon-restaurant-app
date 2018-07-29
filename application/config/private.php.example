@@ -1,0 +1,20 @@
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+/*
+| Use this file as a template to specify the base_url, encryption_key and database credentials.
+| private.php is not ignored in the repository to keep these keys secure and separate.
+*/
+
+$private_config = array();
+
+$private_config['base_url'] = 'http://127.0.0.1/';
+$private_config['encryption_key'] = '';
+
+$private_db = array(
+	'dsn'	=> '',
+	'hostname' => 'localhost',
+	'username' => 'username_here',
+	'password' => 'password_here',
+	'database' => 'databse_name_here',
+);
