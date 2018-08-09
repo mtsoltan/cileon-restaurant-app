@@ -12,9 +12,9 @@ $private_config['base_url'] = 'http://127.0.0.1/';
 $private_config['encryption_key'] = '';
 
 $private_db = array(
-	'dsn'	=> '',
-	'hostname' => 'localhost',
-	'username' => 'username_here',
-	'password' => 'password_here',
-	'database' => 'databse_name_here',
+  'dsn'  => '',
+  'hostname' => 'localhost',
+  'username' => 'username_here',
+  'password' => 'password_here',
+  'database' => 'databse_name_here',
 );

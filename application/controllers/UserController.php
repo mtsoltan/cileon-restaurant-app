@@ -5,10 +5,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class UserController extends MY_Controller {
 
 
-	public function index()
-	{
-		$this->load->view('templates/header.php');
-		$this->load->view('user/index.php');
-		$this->load->view('templates/footer.php');
-	}
+  public function index()
+  {
+    $this->load->view('templates/header.php');
+    $this->load->view('user/index.php');
+    $this->load->view('templates/footer.php');
+  }
 }

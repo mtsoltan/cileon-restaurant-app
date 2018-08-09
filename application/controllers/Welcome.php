@@ -17,7 +17,7 @@ class Welcome extends MY_Controller {
 
 		// Send the post to the loginCheck (rules applied)
 		if($this->form_validation->run() == TRUE) {
-			
+
 			if($this->User->loginCheck()) {
 				// Login check approved send to dashboard
 				$this->session->set_userdata('logged_in', true);
