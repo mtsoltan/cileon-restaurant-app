@@ -1,9 +1,9 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 // The Actual Restaurant Dashboard
-class UserController extends MY_Controller {
-
+class UserController extends MY_Controller
+{
 
   public function index()
   {

@@ -1,10 +1,11 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 // The Actual Restaurant Dashboard
-class ProductController extends MY_Controller {
+class ProductController extends MY_Controller
+{
 
-  public function __construct ()
+  public function __construct()
   {
     parent::__construct();
     // Load the Model
@@ -44,11 +45,10 @@ class ProductController extends MY_Controller {
     $this->form_validation->set_rules('prod_btw', 'Product BTW', 'required');
 
     // Rules are applied and accepted
-    if ($this->form_validation->run() == true)
-    {
+    if ($this->form_validation->run() == true) {
       // Insert the product, retrieve the id back
       $id = $this->Product->insert();
-      redirect(base_url('admin/product/'.$id));
+      redirect(base_url('admin/product/' . $id));
     }
 
     // Load the views
@@ -66,8 +66,7 @@ class ProductController extends MY_Controller {
     $this->form_validation->set_rules('prod_btw', 'Product BTW', 'required');
 
     // Rules are applied and accepted
-    if ($this->form_validation->run() == true)
-    {
+    if ($this->form_validation->run() == true) {
       // Update the product
       $this->Product->update($id);
 
@@ -90,5 +89,4 @@ class ProductController extends MY_Controller {
     $this->Product->remove($id);
     redirect(base_url('admin/products'));
   }
-
 }
