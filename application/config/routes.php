@@ -62,6 +62,9 @@ $route['admin/order/new'] = 'OrderController/add';
 
 $route['admin/dashboard'] = 'UserController/index';
 
-$route['default_controller'] = 'welcome';
+$route['root/sql']['GET'] = 'RootController/sql';
+$route['root/sql']['POST'] = 'RootController/handleSql';
+
+$route['default_controller'] = 'IndexController/index';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

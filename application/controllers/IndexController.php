@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Welcome extends MY_Controller {
+class IndexController extends MY_Controller {
 
 	public function __construct()
 	{
@@ -12,8 +12,8 @@ class Welcome extends MY_Controller {
 	public function index()
 	{
 		// Set required rules
-		$this->form_validation->set_rules('username', 'Gebruikersnaam', 'required');
-		$this->form_validation->set_rules('password', 'Wachtwoord', 'required');
+		$this->form_validation->set_rules('username', $this->lang->line('form_field_username'), 'required');
+		$this->form_validation->set_rules('password', $this->lang->line('form_field_password'), 'required');
 
 		// Send the post to the loginCheck (rules applied)
 		if($this->form_validation->run() == TRUE) {
@@ -26,6 +26,6 @@ class Welcome extends MY_Controller {
 		}
 
 		// Login view
-		$this->load->view('welcome_message');
+		$this->load->view('login');
 	}
 }

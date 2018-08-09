@@ -8,53 +8,54 @@
     <link type="text/css" rel="stylesheet" href="assets/css/style-1.css">
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title><?= $this->lang->line('page_title_login') ?></title>
   </head>
   <body>
     <div class="container">
       <div class="center">
         <div class="card-panel teal lighten-2 white-text">
-          <h3>Login</h3> 
+          <h3><?= $this->lang->line('page_title_login') ?></h3>
         </div>
         <div class="row">
-          <form method="post" action="<?php echo base_url(); ?>" class="col s12">
+          <?= form_open(current_url()) ?>
             <div class="row white-text">
               <div class="input-field col s12 white-text">
                 <i class="material-icons prefix">account_box</i>
                 <input id="icon_prefix" name="username" type="text" class="validate">
-                <label for="icon_prefix">Inlognaam</label>
+                <label for="icon_prefix"><?= $this->lang->line('form_field_username') ?></label>
               </div>
               <div class="input-field col s12">
                 <i class="material-icons prefix">https</i>
                 <input id="icon_telephone" name="password" type="password" class="validate">
-                <label for="icon_telephone">Wachtwoord</label>
+                <label for="icon_telephone"><?= $this->lang->line('form_field_password') ?></label>
               </div>
-              <button type="submit" class="btn waves-effect waves-light teal lighten-2">Login
+              <button type="submit" class="btn waves-effect waves-light teal lighten-2"><?= $this->lang->line('form_control_login') ?>
               <i class="material-icons right">send</i>
               </button>
             </div>
-          </form>
+          <?= form_close() ?>
         </div>
         <!-- Modal Trigger -->
-        <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Wachtwoord vergeten</a>
+        <a class="waves-effect waves-light btn modal-trigger" href="#modal1"><?= $this->lang->line('form_control_forgot') ?></a>
         <!-- Modal Structure -->
         <div id="modal1" class="modal bottom-sheet">
           <div class="modal-content center-align">
-            <h4>Wachtwoord vergeten</h4>
-            <p>Vul hier uw gekoppelde email in en wij zullen u uw wachtwoord toesturen.</p>
+            <h4><?= $this->lang->line('form_control_forgot') ?></h4>
+            <p><?= $this->lang->line('form_desc_forgot') ?></p>
             <form class="col s12">
               <div class="row">
                 <div class="col s12">
                   <i class="material-icons prefix">email</i>
                   <div class="input-field inline">
                     <input id="email" type="email" class="validate">
-                    <label for="email" data-error="wrong" data-success="right">Email</label>
+                    <label for="email" data-error="wrong" data-success="right"><?= $this->lang->line('form_field_email') ?></label>
                   </div>
                 </div>
               </div>
             </form>
           </div>
           <div class="modal-footer">
-            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Verstuur</a>
+            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat"><?= $this->lang->line('form_control_send') ?></a>
           </div>
         </div>
       </div>

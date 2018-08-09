@@ -4,12 +4,12 @@ class User extends CI_Model {
 
   public function loginCheck()
   {
-    $loginCheck = $this->db->get_where('user',
+    $loginCheck = $this->db->get_where('users',
     array(
       'username' => $this->input->post('username'),
-      'password' => hash('sha512', $this->input->post('password'))
+      'passhash' => hash('sha512', $this->input->post('password'))
     ))->num_rows();
-    return $loginCheck;
+    return $loginCheck == 1;
   }
 
 }

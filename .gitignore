@@ -22,6 +22,7 @@ nbproject/
 # Unwanted Extensions
 *.log
 *.sql
+*.todo
 
 
 # Configuration Files
