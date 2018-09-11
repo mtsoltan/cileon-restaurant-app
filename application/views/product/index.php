@@ -1,51 +1,36 @@
 <div class="row">
-  <div class="col s3 sidenav">
-    <?php $this->load->view('templates/navigation.php'); ?>
-  </div>
-  <div class="col s9">
-    <div class="row">
-      <div class="col s12">
-        <div class="topbar"></div>
-        <div class="topsecbar valign-wrapper">
-          <a href="<?php echo base_url('admin/product/new'); ?>" class="waves-effect waves-light btn">Nieuwe Product</a>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="ml-large">
-        <table id="products">
-          <thead>
-            <tr>
-              <th>Naam</th>
-              <th>Prijs</th>
-              <th>BTW</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php foreach($Products as $Product): ?>
-              <tr data-href="<?php echo base_url('admin/product/'.$Product['prod_id']); ?>">
-                <td><?php echo $Product['prod_naam']; ?></td>
-                <td><?php echo $Product['prod_prijs']; ?></td>
-                <td><?php echo $Product['prod_btw']; ?></td>
-              </tr>
-            <?php endforeach; ?>
-          </tbody>
-        </table>
-      </div>
-    </div>
+  <div class="col s12">
+    <?php if (!isset($items) || !is_array($items)) $users = array(); ?>
+    <table class="main-table">
+      <thead>
+        <tr class="headers">
+          <th><?= $this->lang->line('table_products_name') ?></th>
+          <th><?= $this->lang->line('table_products_price') ?></th>
+          <th><?= $this->lang->line('table_products_tax') ?></th>
+          <th><?= $this->lang->line('table_products_np') ?></th>
+          <?php if ($logged_user->hasPermission('admin')): ?>
+            <th><?= $this->lang->line('table_users_group_id') ?></th>
+          <?php endif; ?>
+          <th><?= $this->lang->line('form_control_action') ?></th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php foreach($items as $item): ?>
+          <tr data-href="<?= base_url('product/edit/'.$item->id) ?>">
+            <td><?= htmlspecialchars($item->name) ?></td>
+            <td><?= $item->price ?></td>
+            <td><?= $item->tax ?></td>
+            <td><?= $item->num_purchases ?></td>
+            <?php if ($logged_user->hasPermission('admin')): ?>
+              <?php $group = $item->getGroup($this->Group); ?>
+              <td><a href="<?= base_url('groups?id='.$item->group_id) ?>"><?= $group? $group->name : '' ?></a></td>
+            <?php endif; ?>
+            <td><a href="<?= base_url('product/edit/' . $item->id) ?>">
+              <button class="btn waves-effect waves-light teal lighten-2">
+                <?= $this->lang->line('form_control_edit') ?></button></a></td>
+          </tr>
+        <?php endforeach; ?>
+      </tbody>
+    </table>
   </div>
 </div>
-
-<script type="text/javascript" src="assets/DataTables/datatables.min.js"></script>
-
-<script type="text/javascript">
-  $(document).ready( function(e) {
-    $('#products').DataTable();
-
-    // Table row on click go to page
-    $('#products').find('tbody>tr').on('click', function (e) {
-      window.location.href = $(this).attr('data-href');
-    });
-
-  });
-</script>
