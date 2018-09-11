@@ -1,8 +1,9 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-// Overriding CSRF Error
-class MY_Security extends CI_Security {
+// Security Extender, just in case we need to override CSRF verification.
+class MY_Security extends CI_Security
+{
 
   public function csrf_show_error()
   {
@@ -15,5 +16,4 @@ class MY_Security extends CI_Security {
     // In case I need to dump anything.
     return parent::csrf_verify();
   }
-
 }
