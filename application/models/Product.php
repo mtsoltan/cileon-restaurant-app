@@ -1,48 +1,44 @@
 <?php
 
-class Product extends CI_Model {
+class Product extends MY_Model {
+
+  const PER_PAGE = 50;
+
+  const STATES = [
+    'disabled' => 0,
+    'enabled' => 1,
+  ];
 
   public function __construct ()
   {
     parent::__construct();
   }
 
-  // Fetch all Products
-  public function fetchAll()
+  public function getTableName()
   {
-    $query = $this->db->get('producten')->result_array();
-    return $query;
+    return 'products';
   }
 
-  // Fetch product by id
-  public function fetch($id)
+  public function entityBuilder(array $data)
   {
-    $query = $this->db->get_where('producten', array(
-      'prod_id' => $id
-    ))->row_array();
-    return $query;
+    return new \Entity\Product($data, $this);
   }
 
-  // Insert the product
-  public function insert()
+  public function getProducts($data, $page = false, $includeDisabled = false)
   {
-    $this->db->insert('producten', $this->input->post());
-    return $this->db->insert_id();
-  }
+    $overload = null;
 
-  // Update the product by id
-  public function update($id)
-  {
-    $this->db->where('prod_id', $id)->update('producten', $this->input->post());
-  }
+    if (!$includeDisabled) {
+      $this->db->where(['state' => self::STATES['enabled']]);
+    }
 
-  // Delete the product by id
-  public function remove($id)
-  {
-    $this->db->delete('producten', array('prod_id' => $id));
+    if ($page) {
+      $overload = function (&$qb) use ($page) {
+        return $qb->limit(self::PER_PAGE)->offset($page * self::PER_PAGE);
+      };
+    }
+
+    return $this->getByData($data, $overload);
   }
 
 }
-
-
-?>
