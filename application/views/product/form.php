@@ -1,54 +1,65 @@
-<div class="row">
-  <div class="col s3 sidenav">
-    <?php $this->load->view('templates/navigation.php'); ?>
-  </div>
-  <form method="post">
-    <div class="col s9">
-      <div class="row">
-        <div class="col s12">
-          <div class="topbar"></div>
-          <div class="topsecbar valign-wrapper">
-            <button type="submit" class="waves-effect waves-light btn">Product Opslaan</button>
-            <a href="<?php echo base_url('admin/products');?>" class="waves-effect waves-light grey lighten-4 btn ml-small text-black">
-              <i class="material-icons left">arrow_back</i>
-              Terug
-            </a>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col s12 small-gutter">
-          <div class="row">
-            <div class="input-field col s12 small-gutter">
-              <input id="prod_name" type="text" class="validate" name="prod_naam">
-              <label for="prod_name">Product Naam</label>
-            </div>
-            <div class="input-field col s12 small-gutter">
-              <input id="prod_price" type="text" class="validate" name="prod_prijs">
-              <label for="prod_price">Product Prijs</label>
-            </div>
-            <div class="input-field col s12 small-gutter">
-              <select name="prod_btw">
-                <option disabled selected>Kies een optie</option>
-                <option value="6">6% BTW</option>
-                <option value="21">21% BTW</option>
-              </select>
-              <label>Product BTW</label>
-            </div>
-            <div class="input-field col s12 small-gutter">
-              <textarea id="prod_description" class="materialize-textarea" name="prod_omschrijving"></textarea>
-              <label for="prod_description">Product Beschrijving</label>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </form>
-</div>
+<?= form_open('product/' . (isset($edit) && $edit ? 'edit/' . $this->input->post('id') : 'add')) ?>
+  <?php $this->load->view('templates/fieldinput', [
+    'name' => 'assigned_id',
+    'langline' => 'form_field_productid',
+    'properties' => [
+      'type' => 'number',
+      'required' => true,
+    ]
+  ]); ?>
+  <?php $this->load->view('templates/fieldinput', [
+    'name' => 'name',
+    'langline' => 'form_field_productname',
+    'properties' => [
+      'type' => 'text',
+      'required' => true,
+    ]
+  ]); ?>
+  <?php $this->load->view('templates/fieldinput', [
+    'name' => 'price',
+    'langline' => 'form_field_productprice',
+    'properties' => [
+      'type' => 'number',
+      'pattern' => '\d+(\.\d{2})?',
+      'step' => '0.01',
+      'required' => true,
+    ]
+  ]); ?>
+  <?php $this->load->view('templates/fieldtextarea', [
+    'name' => 'description',
+    'langline' => 'form_field_productdesc',
+    'properties' => []
+  ]); ?>
+  <?php $this->load->view('templates/fieldselect', [
+    'name' => 'tax',
+    'langline' => 'form_field_producttax',
+    'options' => $valid_taxes,
+  ]); ?>
+  <?php if (isset($edit) && $edit): ?>
+    <?php $this->load->view('templates/fieldinput', [
+      'name' => 'num_purchases',
+      'langline' => 'form_field_product_np',
+      'properties' => [
+        'type' => 'number',
+        'pattern' => '\d+',
+        'required' => true,
+      ]
+    ]); ?>
+    <?php $this->load->view('templates/fieldcheckbox', [
+      'name' => 'top',
+      'langline' => 'form_field_producttop',
+      'properties' => []
+    ]); ?>
+  <?php endif; ?>
 
-<!-- Select input initialisation #Materialize -->
-<script type="text/javascript">
-  $(document).ready(function() {
-    $('select').material_select();
-  });
-</script>
+  <button type="submit" class="btn waves-effect waves-light teal lighten-2">
+    <?= $this->lang->line('form_control_' . (isset($edit) && $edit ? 'edit' : 'add')) ?></button>
+<?= form_close() ?>
+<?php if (isset($edit) && $edit): ?>
+  <br>
+  <?= form_open('product/delete/' . $this->input->post('id')) ?>
+    <button type="submit" class="btn waves-effect waves-light red lighten-2">
+      <?= $this->lang->line('form_control_delete') ?></button>
+  <?= form_close() ?>
+<?php endif; ?>
+
