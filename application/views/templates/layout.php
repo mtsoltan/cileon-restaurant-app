@@ -9,7 +9,12 @@
     <?php if (isset($table_layout)): ?>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"/>
     <?php endif ?>
-    <link type="text/css" rel="stylesheet" href="assets/css/style-<?= $style ?>.css">
+    <?php if (isset($styles)) {
+      foreach ($styles as $item) {
+        echo '<link rel="stylesheet" type="text/css" href="' . $item . '"/>';
+      }
+    } ?>
+    <link type="text/css" rel="stylesheet" href="/assets/css/style-<?= $style ?>.css?v=1">
 
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -18,10 +23,15 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <!-- Materialize loads faster when placed at end of body, but for convenience, we'll place it here. -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+    <script>
+    $.autocomplete = undefined;
+    SURE_MSG = "<?= $this->lang->line('confirm_action'); ?>";
+    </script>
+    <script type="text/javascript" src="/assets/js/jquery-ui.min.js"></script>
     <?php if (isset($table_layout)): ?>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
     <?php endif ?>
-    <script src="assets/js/main.js"></script>
+    <script src="/assets/js/main.js"></script>
   </head>
   <body>
     <div class="notices">
