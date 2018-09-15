@@ -53,9 +53,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 // ============== //
 // Public Routes  //
 // ============== //
-$route['login'][ 'GET'] = 'UserController/login'; // DONE
-$route['login']['POST'] = 'UserController/handleLogin'; // DONE
-$route['reset']['POST'] = 'UserController/handleReset'; // DONE
+$route['login'][ 'GET'] = 'UserController/login';
+$route['login']['POST'] = 'UserController/handleLogin';
+$route['reset']['POST'] = 'UserController/handleReset';
 // TODO: Add forgot password and reset email and the stuff...
 
 // ============== //
@@ -63,64 +63,67 @@ $route['reset']['POST'] = 'UserController/handleReset'; // DONE
 // ============== //
 
 // General Routes
-$route['logout']     [ 'GET'] = 'UserController/logout'; // DONE
+$route['logout']     [ 'GET'] = 'UserController/logout';
 $route['dashboard']  [ 'GET'] = 'IndexController/dashboard';
-$route['admin/stats'][ 'GET'] = 'AdminController/stats';
+$route['admin/stats'][ 'GET'] = 'AdminController/stats'; // TODO: not done
 
 // Product Routes
-$route['products']             [ 'GET'] = 'ProductController/index'; // DONE
+$route['products']             [ 'GET'] = 'ProductController/index';
 $route['product/delete/(:num)']['POST'] = 'ProductController/delete/$1';
 $route['product/edit/(:num)']  [ 'GET'] = 'ProductController/edit/$1';
 $route['product/edit/(:num)']  ['POST'] = 'ProductController/handleEdit/$1';
 $route['product/add']          [ 'GET'] = 'ProductController/add';
 $route['product/add']          ['POST'] = 'ProductController/handleAdd';
-$route['product/(:num)']       [ 'GET'] = 'ProductController/view/$1'; // USES GROUP SPECIFIED ASSIGNED_IDS
+$route['product/(:num)']       [ 'GET'] = 'ProductController/view/$1'; // TODO: not done // USES GROUP SPECIFIED ASSIGNED_IDS
+$route['product/api']          [ 'GET'] = 'ProductController/xhrGet';
+$route['product/api']          ['POST'] = 'ProductController/xhrGet';
 
 // Orders Routes
-$route['orders/(pending|all)']['GET'] = 'OrderController/index';
-$route['order/delete/(:num)']['POST'] = 'OrderController/delete/$1';
+$route['orders((/pending|/all)?)']['GET'] = 'OrderController/index';
 $route['order/edit/(:num)']  [ 'GET'] = 'OrderController/edit/$1';
-$route['order/edit/(:num)']  ['POST'] = 'OrderController/handleEdit/$1';
-$route['order/add']          [ 'GET'] = 'OrderController/add'; // TODO: On dashboard too.
+$route['order/edit/(:num)']  ['POST'] = 'OrderController/handleEdit/$1'; // TODO: not done
+$route['order/add']          [ 'GET'] = 'OrderController/add';
 $route['order/add']          ['POST'] = 'OrderController/handleAdd';
-$route['order/(:num)']       [ 'GET'] = 'OrderController/view/$1';
+$route['order/(:num)']       [ 'GET'] = 'OrderController/view/$1'; // TODO: not done
 
-// TODO: Financial Calculations
+// TODO: Financial Calculations, order printing
 
 // Customers Routes
 $route['customers']             [ 'GET'] = 'CustomerController/index';
 $route['customer/delete/(:num)']['POST'] = 'CustomerController/delete/$1';
 $route['customer/edit/(:num)']  [ 'GET'] = 'CustomerController/edit/$1';
 $route['customer/edit/(:num)']  ['POST'] = 'CustomerController/handleEdit/$1';
-$route['customer/add']          [ 'GET'] = 'CustomerController/add'; // TODO: On dashboard too.
+$route['customer/add']          [ 'GET'] = 'CustomerController/add';
 $route['customer/add']          ['POST'] = 'CustomerController/handleAdd';
-$route['customer/(:num)']       [ 'GET'] = 'CustomerController/view/$1';
+$route['customer/(:num)']       [ 'GET'] = 'CustomerController/view/$1'; // TODO: not done
+$route['customer/api']          [ 'GET'] = 'CustomerController/xhrGet';
+$route['customer/api']          ['POST'] = 'CustomerController/xhrGet';
 
 // Group Routes
-$route['settings']           [ 'GET'] = 'GroupController/editOwn';
-$route['settings']           ['POST'] = 'GroupController/handleEditOwn';
-$route['groups']             [ 'GET'] = 'GroupController/index'; // DONE
+$route['settings']           [ 'GET'] = 'GroupController/editOwn'; // TODO: not done
+$route['settings']           ['POST'] = 'GroupController/handleEditOwn'; // TODO: not done
+$route['groups']             [ 'GET'] = 'GroupController/index';
 $route['group/delete/(:num)']['POST'] = 'GroupController/delete/$1';
 $route['group/edit/(:num)']  [ 'GET'] = 'GroupController/edit/$1';
 $route['group/edit/(:num)']  ['POST'] = 'GroupController/handleEdit/$1';
-$route['group/add']          [ 'GET'] = 'GroupController/add'; // DONE
-$route['group/add']          ['POST'] = 'GroupController/handleAdd'; // DONE
-$route['group/(:num)']       [ 'GET'] = 'GroupController/view/$1';
+$route['group/add']          [ 'GET'] = 'GroupController/add';
+$route['group/add']          ['POST'] = 'GroupController/handleAdd';
+$route['group/(:num)']       [ 'GET'] = 'GroupController/view/$1'; // TODO: not done
 
 // User Routes
-$route['users']             [ 'GET'] = 'UserController/index'; // DONE
-$route['user/delete/(:num)']['POST'] = 'UserController/delete/$1';
-$route['user/edit/(:num)']  [ 'GET'] = 'UserController/edit/$1';
-$route['user/edit/(:num)']  ['POST'] = 'UserController/handleEdit/$1';
-$route['user/add']          [ 'GET'] = 'UserController/add'; // DONE
-$route['user/add']          ['POST'] = 'UserController/handleAdd'; // DONE
-$route['user/(:num)']       [ 'GET'] = 'UserController/view/$1';
+$route['users']             [ 'GET'] = 'UserController/index';
+$route['user/delete/(:num)']['POST'] = 'UserController/delete/$1'; // TODO: not done
+$route['user/edit/(:num)']  [ 'GET'] = 'UserController/edit/$1'; // TODO: not done
+$route['user/edit/(:num)']  ['POST'] = 'UserController/handleEdit/$1'; // TODO: not done
+$route['user/add']          [ 'GET'] = 'UserController/add';
+$route['user/add']          ['POST'] = 'UserController/handleAdd';
+$route['user/(:num)']       [ 'GET'] = 'UserController/view/$1'; // TODO: not done
 
 // Root Routes
-$route['root/sql']    [ 'GET'] = 'RootController/sql'; // DONE
-$route['root/sql']    ['POST'] = 'RootController/handleSql'; // DONE
-$route['root/migrate'][ 'GET'] = 'RootController/migrate'; // DONE
+$route['root/sql']    [ 'GET'] = 'RootController/sql';
+$route['root/sql']    ['POST'] = 'RootController/handleSql';
+$route['root/migrate'][ 'GET'] = 'RootController/migrate';
 
-$route['default_controller'] = 'IndexController/index'; // DONE
+$route['default_controller'] = 'IndexController/index';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
