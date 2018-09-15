@@ -11,7 +11,7 @@
           echo $key . ' ';
       }
     }
-    echo !is_null($this->input->post($name)) ? 'checked' : ''
+    echo !is_null($this->input->post($name)) && $this->input->post($name) ? 'checked' : ''
     ?>>
     <span><?= $this->lang->line($langline) ?></span>
   </label>
