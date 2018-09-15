@@ -12,11 +12,11 @@
       </thead>
       <tbody>
         <?php foreach($items as $item): ?>
-          <tr data-href="<?= base_url('group/edit/'.$item->id) ?>">
+          <tr data-href="<?= base_url('group/view/'.$item->id) ?>">
             <td><?= htmlspecialchars($item->name) ?></td>
             <?php $admin = $item->getAdmin($this->User); ?>
-            <td><a href="<?= $admin ? base_url('users?id='.$admin->id) : '#' ?>"><?= $admin ? $admin->username : '' ?></a></td>
-            <td><?= $item->create_timestamp ?></td>
+            <td><a href="<?= $admin ? base_url('user/view/'.$admin->id) : '#' ?>"><?= $admin ? $admin->username : '' ?></a></td>
+            <td><?= $item->create_datetime ?></td>
             <td><a href="<?= base_url('group/edit/' . $item->id) ?>">
               <button class="btn waves-effect waves-light teal lighten-2">
                 <?= $this->lang->line('form_control_edit') ?></button></a></td>

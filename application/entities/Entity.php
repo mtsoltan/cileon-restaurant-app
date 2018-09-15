@@ -21,12 +21,22 @@ class Entity {
 
   public function __get($el) {
     $rv = $this->getData()[$el];
-    if (ctype_digit("$rv")) return ($rv > PHP_INT_MAX ? (float)$rv : (int)$rv);
+    if (ctype_digit("$rv") && (strpos($rv, '0') !== 0 || count($rv) === 1))
+      return ($rv > PHP_INT_MAX ? (float)$rv : (int)$rv);
     return $rv;
   }
 
   public function getData() { // Overridable.
-    return $this->data;
+    $data = $this->data;
+    if (isset($data['create_timestamp'])) {
+      $dt =  new \DateTime();
+      $dt->setTimestamp($data['create_timestamp']);
+      $data['create_datetime'] = $dt->format('Y-m-d H:i:s');
+      if (isset($data['id']))
+        $data['serial'] = $dt->format('ymdHis') . $data['id'];
+    }
+
+    return $data;
   }
 
   public function getSaveableData() { // Non-overridable.

@@ -7,6 +7,9 @@ class User extends Entity {
 
   public function getData() {
     $data = parent::getData();
+    $dt =  new \DateTime();
+    $dt->setTimestamp($data['last_login']);
+    $data['login_datetime'] = $dt->format('Y-m-d H:i:s');
     return $data;
   }
 

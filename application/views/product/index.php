@@ -4,6 +4,7 @@
     <table class="main-table">
       <thead>
         <tr class="headers">
+          <th><?= $this->lang->line('table_products_id') ?></th>
           <th><?= $this->lang->line('table_products_name') ?></th>
           <th><?= $this->lang->line('table_products_price') ?></th>
           <th><?= $this->lang->line('table_products_tax') ?></th>
@@ -16,14 +17,15 @@
       </thead>
       <tbody>
         <?php foreach($items as $item): ?>
-          <tr data-href="<?= base_url('product/edit/'.$item->id) ?>">
+          <tr data-href="<?= base_url('product/view/'.$item->id) ?>">
+            <td><?= $item->assigned_id ?></td>
             <td><?= htmlspecialchars($item->name) ?></td>
             <td><?= $item->price ?></td>
             <td><?= $item->tax ?></td>
             <td><?= $item->num_purchases ?></td>
             <?php if ($logged_user->hasPermission('admin')): ?>
               <?php $group = $item->getGroup($this->Group); ?>
-              <td><a href="<?= base_url('groups?id='.$item->group_id) ?>"><?= $group? $group->name : '' ?></a></td>
+              <td><a href="<?= base_url('group/view/'.$item->group_id) ?>"><?= $group? $group->name : '' ?></a></td>
             <?php endif; ?>
             <td><a href="<?= base_url('product/edit/' . $item->id) ?>">
               <button class="btn waves-effect waves-light teal lighten-2">
