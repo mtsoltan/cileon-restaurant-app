@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col s12">
     <?php if (!isset($items) || !is_array($items)) $users = array(); ?>
-    <table class="main-table">
+    <table class="main-table striped highlight">
       <thead>
         <tr class="headers">
           <th><?= $this->lang->line('table_orders_number') ?></th>
@@ -33,12 +33,12 @@
               $element_price = $element->price * (1 + $element->tax / 100) * $element->quantity;
               $price += $element_price;
               $html_cart .= $element->quantity . ' x ' . $element->name . ' = ' .
-                round($element_price, 2) . '<br>';
+                $this->lang->line('c') . number_format($element_price, 2, '.', '') . '<br>';
             }
             ?>
             <td><?= $html_cart ?></td>
-            <td><?= floatval($item->tax) ?>% (<?= round($price * $item->tax / 100, 2) ?>)</td>
-            <td><?= $item->total_price ?></td>
+            <td><?= floatval($item->tax) . $this->lang->line('p') ?> (<?= $this->lang->line('c') . number_format($price * $item->tax / 100, 2, '.', '') ?>)</td>
+            <td><?= $this->lang->line('c') . $item->total_price ?></td>
             <td><?= $item->create_datetime ?></td>
             <?php if ($logged_user->hasPermission('admin')): ?>
               <?php $group = $item->getGroup($this->Group); ?>

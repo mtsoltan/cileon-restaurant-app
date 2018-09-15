@@ -104,7 +104,7 @@
             ]
           ]);
           echo '<div class="product_price col s3">' .
-            round($a_product->price * (1 + $a_product->tax / 100), 2) .
+            number_format($a_product->price * (1 + $a_product->tax / 100), 2, '.', '') .
             ' (' . $a_product->price . ' ' . $this->lang->line('form_desc_withouttax') . ')</div>';
           $this->load->view('templates/fieldinput', [
             'name' => 'product_quantity[]',

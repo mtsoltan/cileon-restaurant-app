@@ -12,6 +12,8 @@ $lang['class_0'] = 'Root';
 $lang['class_1'] = 'Admin';
 $lang['class_2'] = 'Restaurant Owner';
 $lang['class_3'] = 'Normal User';
+$lang['c'] = '€ ';
+$lang['p'] = '%';
 
 $lang['page_title_login']        = 'Login';
 $lang['page_title_logout']       = 'Logout';

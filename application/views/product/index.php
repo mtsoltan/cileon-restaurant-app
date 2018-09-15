@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col s12">
     <?php if (!isset($items) || !is_array($items)) $users = array(); ?>
-    <table class="main-table">
+    <table class="main-table striped highlight">
       <thead>
         <tr class="headers">
           <th><?= $this->lang->line('table_products_id') ?></th>
@@ -20,8 +20,8 @@
           <tr data-href="<?= base_url('product/view/'.$item->id) ?>">
             <td><?= $item->assigned_id ?></td>
             <td><?= htmlspecialchars($item->name) ?></td>
-            <td><?= $item->price ?></td>
-            <td><?= $item->tax ?></td>
+            <td><?= $this->lang->line('c') . $item->price ?></td>
+            <td><?= $item->tax . $this->lang->line('p') ?></td>
             <td><?= $item->num_purchases ?></td>
             <?php if ($logged_user->hasPermission('admin')): ?>
               <?php $group = $item->getGroup($this->Group); ?>

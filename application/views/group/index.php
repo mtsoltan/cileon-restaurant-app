@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col s12">
     <?php if (!isset($items) || !is_array($items)) $users = array(); ?>
-    <table class="main-table">
+    <table class="main-table striped highlight">
       <thead>
         <tr class="headers">
           <th><?= $this->lang->line('table_groups_name') ?></th>

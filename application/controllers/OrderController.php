@@ -221,8 +221,8 @@ class OrderController extends MY_Controller
       'customer_id' => $customerId,
       'state' => $model::STATES['pending'],
       'cart' => serialize($cart),
-      'tax' => round($tax, 2),
-      'total_price' => round($sum * (1 + $tax / 100), 2),
+      'tax' => number_format($tax, 2, '.', ''),
+      'total_price' => number_format($sum * (1 + $tax / 100), 2, '.', ''),
       'address' => $address,
     ]);
 
