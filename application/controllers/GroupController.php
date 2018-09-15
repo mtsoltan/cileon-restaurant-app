@@ -21,7 +21,7 @@ class GroupController extends MY_Controller
 
   }
 
-  public function editOwn() { // FIXME: Fix this.
+  public function editOwn() { // FIXME: editOwn, handleEditOwn
     $this->requiresPermission('group/own');
     if (!$this->user->group_id)
       return $this->showError(403, 'notice_permission_403');
@@ -140,7 +140,6 @@ class GroupController extends MY_Controller
       return $this->redirect('groups');
     }
 
-    $this->load->helper('string');
     $group->name = $group->name . '-' . random_string();
     $group->blame_id = $this->user->id;
     $group->state = $groupModel::STATES['disabled'];

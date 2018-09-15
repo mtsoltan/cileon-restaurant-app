@@ -30,6 +30,7 @@ class MY_Controller extends CI_Controller {
     $this->lang->load('strings');
     $this->load->model('User');
     $this->load->model('Group');
+    $this->load->helper('string');
 
     // Get the flash last page set and reset the flash.
     if (!isset($_SESSION['flash_messages'])) {

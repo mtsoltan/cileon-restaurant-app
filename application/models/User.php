@@ -45,18 +45,15 @@ class User extends MY_Model {
     'enabled' => 1,
   ];
 
-  public function __construct()
-  {
+  public function __construct() {
     parent::__construct();
   }
 
-  public function getTableName()
-  {
+  public function getTableName() {
     return 'users';
   }
 
-  public function entityBuilder(array $data)
-  {
+  public function entityBuilder(array $data) {
     return new \Entity\User($data, $this);
   }
 
@@ -85,8 +82,7 @@ class User extends MY_Model {
     ))->save();
   }
 
-  public function getByUsername($username)
-  {
+  public function getByUsername($username) {
     $users = $this->getByData(array(
       'username' => $username,
     ));
@@ -100,8 +96,7 @@ class User extends MY_Model {
    * @param string $password
    * @return boolean|array
    */
-  public function validateLogin($username, $password)
-  {
+  public function validateLogin($username, $password) {
     $users = $this->getByData(array(
       'username' => $username,
       'passhash' => hash('sha512', $password),

@@ -7,18 +7,15 @@ class Group extends MY_Model {
     'enabled' => 1,
   ];
 
-  public function __construct()
-  {
+  public function __construct() {
     parent::__construct();
   }
 
-  public function getTableName()
-  {
+  public function getTableName() {
     return 'groups';
   }
 
-  public function entityBuilder(array $data)
-  {
+  public function entityBuilder(array $data) {
     return new \Entity\group($data, $this);
   }
 }

@@ -13,6 +13,8 @@ class UserController extends MY_Controller
     [ 'route' => 'user/add', 'title' => 'page_title_user_add', 'permission' => 'user/add', 'active' => 'user/add']
   ];
 
+  // FIXME: edit, handleEdit, delete
+
   public function login()
   {
     $this->isPublic();
@@ -85,7 +87,6 @@ class UserController extends MY_Controller
 
     if ($user->force_reset) {
       // We don't want to log the user in yet, so we won't start a session here.
-      $this->load->helper('string');
       $user->recovery_key = random_string('alnum', self::RECOVERY_KEY_LENGTH); // Used in place of authentication session.
       $user->force_reset = time() + self::RECOVERY_TIMEOUT; // Using force reset for recovery expiration time.
       $user->save();
@@ -249,7 +250,6 @@ class UserController extends MY_Controller
     }
 
     // If we've reached this far, then we should add the user.
-    $this->load->helper('string');
     $password = random_string('alnum', self::DEFAULT_PASSLENGTH);
     $data['passhash'] = hash('sha512', $password);
     $data['ip'] = '127.0.0.1';
