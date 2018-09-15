@@ -97,7 +97,7 @@ class Migration_Create_all_tables extends CI_Migration
   private function create_customers_table() {
     $this->dbforge->add_field(array(
       'id' => array('type' => 'INT', 'constraint' => 32, 'unsigned' => true, 'auto_increment' => true),
-      'name' => array('type' => 'VARCHAR', 'constraint' => 20, 'unique' => true),
+      'name' => array('type' => 'VARCHAR', 'constraint' => 255, 'unique' => true),
       'contact' => array('type' => 'VARCHAR', 'constraint' => 255), // Phone, etc.
       'address' => array('type' => 'VARCHAR', 'constraint' => 1023),
       'num_purchases' => array('type' => 'SMALLINT', 'unsigned' => true, 'constraint' => 16),
@@ -122,7 +122,7 @@ class Migration_Create_all_tables extends CI_Migration
       'customer_id' => array('type' => 'INT', 'unsigned' => true, 'constraint' => 32),
       'state' => array('type' => 'TINYINT', 'unsigned' => true, 'constraint' => 8), // ['pending', 'finalized', 'cancelled']
       'cart' => array('type' => 'TEXT'),
-      'tax' => array('type' => 'TINYINT', 'unsigned' => true, 'constraint' => 8),
+      'tax' => array('type' => 'DECIMAL(4,2) NOT NULL'),
       'total_price' => array('type' => 'DECIMAL(7,2) NOT NULL'),
       'address' => array('type' => 'VARCHAR', 'constraint' => 1023),
       'create_timestamp' => array('type' => 'INT', 'unsigned' => true, 'constraint' => 32),
