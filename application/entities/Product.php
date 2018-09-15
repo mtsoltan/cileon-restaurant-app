@@ -5,8 +5,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Product extends Entity {
 
+  public $quantity;
+
   public function getData() {
     $data = parent::getData();
+    $data['quantity'] = $this->quantity ? $this->quantity : '0';
     return $data;
   }
 

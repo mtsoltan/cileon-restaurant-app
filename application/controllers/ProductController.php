@@ -17,13 +17,13 @@ class ProductController extends MY_Controller
 
   public function index() {
     $this->requiresPermission('product/view');
-    /** @var Product $productModel */
-    $productModel = $this->Product;
+    /** @var Product $model */
+    $model = $this->Product;
 
     if ($this->user->hasPermission('admin')) {
-      $items = $productModel->getAll();
+      $items = $model->getAll(); // TODO: Pagination ($model->getPaginated)
     } else {
-      $items = $productModel->getByData(['group_id' => $this->user->group_id]);
+      $items = $model->getByData(['group_id' => $this->user->group_id]);
     }
 
     return $this->respondWithView('product/index', [
@@ -40,13 +40,41 @@ class ProductController extends MY_Controller
     $this->form_validation->set_rules('name',
       $this->lang->line('form_field_productname'), 'trim|required|max_length[245]');
     $this->form_validation->set_rules('price',
-      $this->lang->line('form_field_productprice'), 'required|decimal|regex_match[/\d+(\.\d{2})/]');
+      $this->lang->line('form_field_productprice'), 'required|regex_match[/\d+(\.\d{2})?/]');
     $this->form_validation->set_rules('description',
       $this->lang->line('form_field_productdesc'), 'trim|max_length[2047]');
     $this->form_validation->set_rules('tax',
-      $this->lang->line('form_field_producttax'), 'trim|required|is_natural|in_list['.
+      $this->lang->line('form_field_producttax'), 'trim|required|in_list['.
       implode(',', $this->validTaxes).']');
+  }
 
+  public function xhrGet() {
+    $term = $this->input->post_get('term');
+    $id = $this->input->post_get('id');
+
+    /** @var Product $model */
+    $model = $this->Product;
+    if (!is_null($term)) {
+      $records = $model->getByData(['group_id' => $this->user->group_id], function(&$qb) use ($term) {
+        $qb->like('name', $term);
+        return $qb;
+      });
+    }
+    if (!is_null($id)) {
+      $records = $model->getByData(['group_id' => $this->user->group_id, 'assigned_id' => $id]);
+    }
+
+    foreach ($records as $k => $v) {
+      $records[$k] = [
+        'id' => $v->id,
+        'name' => $v->name,
+        'assigned_id' => $v->assigned_id,
+        'price' => $v->price,
+        'tax' => $v->tax,
+      ];
+    }
+
+      return $this->respondWithJson(['records' => $records]);
   }
 
   public function edit($id) {
@@ -87,7 +115,7 @@ class ProductController extends MY_Controller
 
     $this->setValidationRules();
     $this->form_validation->set_rules('num_purchases',
-      $this->lang->line('form_field_productprice'), 'required|is_natural');
+      $this->lang->line('form_field_product_np'), 'required|is_natural');
 
     if(!$this->form_validation->run()) { // If form did not validte.
       return $this->edit($id);
@@ -174,12 +202,11 @@ class ProductController extends MY_Controller
     $productModel = $this->Product;
     $product = $productModel->getById($id);
 
-    if (!$product) {
+    if (!$product || $product->group_id !== $this->user->group_id) {
       $this->addFlash($this->lang->line('notice_no_such_x_404'), 'error');
       return $this->redirect('products');
     }
 
-    $this->load->helper('string');
     // We don't need to free name and assigned_id because isUnique checks against only enabled products.
     $product->name = $product->name . '-' . random_string(); // Free the product name either way.
     $product->state = $productModel::STATES['disabled'];
