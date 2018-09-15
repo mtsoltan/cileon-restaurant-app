@@ -5,6 +5,8 @@ require_once(APPPATH.'entities/'.'Entity.php');
 // Loader Extender, just in case we need to override view loading
 abstract class MY_Model extends CI_Model
 {
+  const PER_PAGE = 50;
+
   public function __construct()
   {
     require_once(APPPATH.'entities/'.get_class($this).'.php');
@@ -24,7 +26,7 @@ abstract class MY_Model extends CI_Model
 
   /**
    * Gets records from the database based on the provided filters.
-   * WARNING: Override this function if you're using it for a table without a state field. TODO: Override in orders states.
+   * WARNING: Override this function if you're using it for a table without a state field.
    * @param array $data An array of data filters to use in WHERE.
    * @param callable $overload A function that takes the query builder as an argument by reference and overloads it.
    * @param boolean $includeDisabled Set to true to include disabled records.
@@ -135,5 +137,18 @@ abstract class MY_Model extends CI_Model
     }
 
     return $entity;
+  }
+
+  public function getPaginated($data, $page = false, $includeDisabled = false)
+  {
+    $overload = null;
+
+    if ($page) {
+      $overload = function (&$qb) use ($page) {
+        return $qb->limit(self::PER_PAGE)->offset($page * self::PER_PAGE);
+      };
+    }
+
+    return $this->getByData($data, $overload, $includeDisabled);
   }
 }
