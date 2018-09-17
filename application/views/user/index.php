@@ -6,7 +6,7 @@
         <tr class="headers">
           <th><?= $this->lang->line('table_users_username') ?></th>
           <th><?= $this->lang->line('table_users_email') ?></th>
-          <th><?= $this->lang->line('table_users_notes') ?></th>
+          <?php /*th><?= $this->lang->line('table_users_notes') ?></th*/?>
           <?php if ($logged_user->hasPermission('admin')): ?>
             <th><?= $this->lang->line('table_users_last_login') ?></th>
             <th><?= $this->lang->line('table_users_ip') ?></th>
