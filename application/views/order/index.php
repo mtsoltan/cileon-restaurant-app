@@ -19,11 +19,11 @@
       </thead>
       <tbody>
         <?php foreach($items as $item): ?>
-          <tr data-href="<?= base_url('order/view/'.$item->id) ?>">
+          <tr data-href="<?= base_url('order/'.$item->id) ?>">
             <td><?= $item->serial ?></td>
               <?php $customer = $item->getCustomer($this->Customer); ?>
-              <td><a href="<?= base_url('customer/view/'.$item->customer_id) ?>">
-                <?= $customer ? $customer->name : '' ?></a></td>
+              <td><a href="<?= base_url('customer/'.$item->customer_id) ?>">
+                <?= $customer ? htmlspecialchars($customer->name) : '' ?></a></td>
             <td><?= htmlspecialchars($item->address) ?></td>
             <?php
             $cart = $item->getCart($this->Product);
@@ -42,7 +42,7 @@
             <td><?= $item->create_datetime ?></td>
             <?php if ($logged_user->hasPermission('admin')): ?>
               <?php $group = $item->getGroup($this->Group); ?>
-              <td><a href="<?= base_url('group/view/'.$item->group_id) ?>"><?= $group? $group->name : '' ?></a></td>
+              <td><a href="<?= base_url('group/'.$item->group_id) ?>"><?= $group ? $group->name : '' ?></a></td>
             <?php endif; ?>
             <td class="dense-actions">
               <?php if (!$item->state): ?>

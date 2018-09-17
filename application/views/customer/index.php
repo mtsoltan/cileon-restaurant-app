@@ -16,14 +16,14 @@
       </thead>
       <tbody>
         <?php foreach($items as $item): ?>
-          <tr data-href="<?= base_url('customer/view/'.$item->id) ?>">
+          <tr data-href="<?= base_url('customer/'.$item->id) ?>">
             <td><?= htmlspecialchars($item->name) ?></td>
             <td><?= htmlspecialchars($item->contact) ?></td>
             <td><?= htmlspecialchars($item->address) ?></td>
             <td><?= $item->num_purchases ?></td>
             <?php if ($logged_user->hasPermission('admin')): ?>
               <?php $group = $item->getGroup($this->Group); ?>
-              <td><a href="<?= base_url('group/view/'.$item->group_id) ?>"><?= $group? $group->name : '' ?></a></td>
+              <td><a href="<?= base_url('group/'.$item->group_id) ?>"><?= $group ? $group->name : '' ?></a></td>
             <?php endif; ?>
             <td>
               <a href="<?= base_url('customer/edit/' . $item->id) ?>">

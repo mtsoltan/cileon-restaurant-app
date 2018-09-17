@@ -17,7 +17,7 @@
       </thead>
       <tbody>
         <?php foreach($items as $item): ?>
-          <tr data-href="<?= base_url('product/view/'.$item->id) ?>">
+          <tr data-href="<?= base_url('product/'.$item->id) ?>">
             <td><?= $item->assigned_id ?></td>
             <td><?= htmlspecialchars($item->name) ?></td>
             <td><?= $this->lang->line('c') . $item->price ?></td>
@@ -25,7 +25,7 @@
             <td><?= $item->num_purchases ?></td>
             <?php if ($logged_user->hasPermission('admin')): ?>
               <?php $group = $item->getGroup($this->Group); ?>
-              <td><a href="<?= base_url('group/view/'.$item->group_id) ?>"><?= $group? $group->name : '' ?></a></td>
+              <td><a href="<?= base_url('group/'.$item->group_id) ?>"><?= $group ? $group->name : '' ?></a></td>
             <?php endif; ?>
             <td><a href="<?= base_url('product/edit/' . $item->id) ?>">
               <button class="btn waves-effect waves-light teal lighten-2">

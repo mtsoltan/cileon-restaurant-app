@@ -19,16 +19,16 @@
       </thead>
       <tbody>
         <?php foreach($items as $item): ?>
-          <tr data-href="<?= base_url('user/view/'.$item->id) ?>">
+          <tr data-href="<?= base_url('user/'.$item->id) ?>">
             <td><?= $item->username ?></td>
             <td><?= $item->email ?></td>
-            <td><?= htmlspecialchars($item->state_text) ?></td>
+            <?php /*td><?= htmlspecialchars($item->state_text) ?></td*/?>
             <?php if ($logged_user->hasPermission('admin')): ?>
               <td><?= $item->login_datetime ?></td>
               <td><?= $item->ip ?></td>
               <td><?= $this->lang->line('class_' . $item->class) ?></td>
               <?php $group = $item->getGroup($this->Group); ?>
-              <td><a href="<?= base_url('group/view/'.$item->group_id) ?>"><?= $group? $group->name : '' ?></a></td>
+              <td><a href="<?= base_url('group/'.$item->group_id) ?>"><?= $group ? $group->name : '' ?></a></td>
               <td><?= $item->create_datetime ?></td>
             <?php endif ?>
             <td><a href="<?= base_url('user/edit/' . $item->id) ?>">
