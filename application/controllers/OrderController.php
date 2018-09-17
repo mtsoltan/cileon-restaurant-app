@@ -198,14 +198,20 @@ class OrderController extends MY_Controller
     $sum = 0;
     $tax = floatval($this->input->post('tax'));
     $customerId = $this->input->post('customer_id');
+    $customer = $this->Customer->getById($customerId);
+
+    if (!$customer || $customer->group_id !== $this->user->group_id) {
+      $this->addFlash($this->lang->line('notice_no_such_x_404'), 'error');
+      return $this->add();
+    }
     $address = $this->input->post('address') ?
       $this->input->post('address') :
-      $this->Customer->getById($customerId)->address;
+      $customer->address;
     $productIds = $this->input->post('product_assigned_id[]');
     foreach($productIds as $key => $productId) {
       $products = $this->Product->getByData(['assigned_id' => $productId, 'group_id' => $this->user->group_id]);
       $product = count($products) ? $products[0] : null;
-      if($product) {
+      if($product && $this->input->post('product_quantity[]')[$key]) {
         $qty = intval($this->input->post('product_quantity[]')[$key]);
         $sum += $product->price * (1 + $product->tax / 100) * $qty;
         $cart[] = [$productId, $this->input->post('product_quantity[]')[$key]];
@@ -226,7 +232,8 @@ class OrderController extends MY_Controller
       'address' => $address,
     ]);
 
-    // Increase customer num_purchases
+    $customer->num_purchases = $customer->num_purchases + 1;
+    $customer->save();
 
     if (!$item) {
       $this->addFlashNow($this->lang->line('notice_db_soft_error'), 'error');
