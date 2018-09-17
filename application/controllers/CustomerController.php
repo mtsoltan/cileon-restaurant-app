@@ -199,4 +199,51 @@ class CustomerController extends MY_Controller
     $this->addFlash($this->lang->line('notice_action_200'), 'success');
     return $this->redirect('customers');
   }
+
+  public function view($id) {
+    $this->requiresPermission('customer/view');
+    $this->topnavBack = 'customers';
+    $this->load->model('Order');
+    $this->load->model('Product');
+    /** @var Customer $model */
+    $model = $this->Customer;
+
+    $item = $model->getById($id);
+    if (!$item || $item->group_id !== $this->user->group_id) {
+      $this->addFlash($this->lang->line('notice_no_such_x_404'), 'error');
+      return $this->redirect('customers');
+    }
+
+    $diThis = $this;
+    $ordersString = '<ul class="browser-default">' . implode('', array_map(function($o) use ($diThis) {
+      list($strings, $price) = $o->getCartStrings($this->Product);
+      $strings[] =
+        floatval($o->tax) . $diThis->lang->line('p') . '(' .
+        $this->lang->line('c') . number_format($price * $o->tax / 100, 2, '.', '') . ')';
+      return '<li>' .
+        '<a href="order/' . $o->id . '">' . $o->serial . '</a> (' . $diThis->lang->line('ostate_' . $o->state) . ')<br>' .
+        $this->lang->line('table_orders_tp') . ': ' . $diThis->lang->line('c') . $o->total_price . '<br>' .
+        $diThis->lang->line('page_title_products') . ': <ul class="browser-default"><li>' .
+        implode('</li><li>', $strings) .
+        '</li></ul>' .
+      '</li>';
+    }, $this->Order->getByData(['customer_id' => $item->id]))) . '</ul>';
+
+    $items = [
+      [$this->lang->line('table_customers_name'), htmlspecialchars($item->name)],
+      [$this->lang->line('table_customers_contact'), htmlspecialchars($item->contact)],
+      [$this->lang->line('table_customers_address'), htmlspecialchars($item->address)],
+      [$this->lang->line('table_customers_np'), $item->num_purchases],
+      [$this->lang->line('table_create_ts'), $item->create_datetime],
+      'buttons',
+      [$this->lang->line('page_title_orders'), $ordersString]
+    ];
+
+    return $this->respondWithView('view', [
+      'items' => $items,
+      'item' => $item,
+      'type' => 'customer',
+      'title' => $this->lang->line('page_title_customer'),
+    ]);
+  }
 }

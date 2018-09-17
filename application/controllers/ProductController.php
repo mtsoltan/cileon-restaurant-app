@@ -215,4 +215,35 @@ class ProductController extends MY_Controller
     $this->addFlash($this->lang->line('notice_action_200'), 'success');
     return $this->redirect('products');
   }
+
+  public function view($id) {
+    $this->requiresPermission('product/view');
+    $this->topnavBack = 'products';
+    /** @var Product $model */
+    $model = $this->Product;
+
+    $item = $model->getById($id);
+    if (!$item || $item->group_id !== $this->user->group_id) {
+      $this->addFlash($this->lang->line('notice_no_such_x_404'), 'error');
+      return $this->redirect('products');
+    }
+
+    $items = [
+      [$this->lang->line('table_products_id'), $item->assigned_id],
+      [$this->lang->line('table_products_name'), htmlspecialchars($item->name)],
+      [$this->lang->line('table_products_desc'), htmlspecialchars($item->description)],
+      [$this->lang->line('table_products_price'), $this->lang->line('c') . $item->price],
+      [$this->lang->line('table_products_tax'), $item->tax . $this->lang->line('p')],
+      [$this->lang->line('table_products_np'), $item->num_purchases],
+      [$this->lang->line('table_create_ts'), $item->create_datetime],
+      'buttons',
+    ];
+
+    return $this->respondWithView('view', [
+      'items' => $items,
+      'item' => $item,
+      'type' => 'product',
+      'title' => $this->lang->line('page_title_product'),
+    ]);
+  }
 }

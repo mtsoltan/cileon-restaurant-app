@@ -245,4 +245,40 @@ class OrderController extends MY_Controller
     $this->addFlash($this->lang->line('notice_action_200'), 'success');
     return $this->redirect('dashboard');
   }
+
+  public function view($id) {
+    $this->requiresPermission('order/view');
+    $this->topnavBack = 'orders';
+
+    $item = $this->Order->getById($id);
+    if (!$item || $item->group_id !== $this->user->group_id) {
+      $this->addFlash($this->lang->line('notice_no_such_x_404'), 'error');
+      return $this->redirect('customers');
+    }
+
+    list($strings, $price) = $item->getCartStrings($this->Product);
+    $productsString = '<ul class="browser-default"><li>' . implode('</li><li>', $strings) . '</li></ul>';
+
+    $customer = $item->getCustomer($this->Customer);
+
+    $items = [
+      [$this->lang->line('table_orders_number'), $item->serial],
+      [$this->lang->line('table_orders_customer_id'), '<a href="' . base_url('customer/'.$item->customer_id) .
+        '">' . ($customer ? htmlspecialchars($customer->name) : '') . '</a>'],
+      [$this->lang->line('table_orders_address'), $item->address],
+      [$this->lang->line('table_orders_cart'), $productsString],
+      [$this->lang->line('table_orders_tax'), floatval($item->tax) . $this->lang->line('p') . '(' .
+        $this->lang->line('c') . number_format($price * $item->tax / 100, 2, '.', '') . ')'],
+      [$this->lang->line('table_orders_tp'), $this->lang->line('c') . $item->total_price],
+      [$this->lang->line('table_create_ts'), $item->create_datetime],
+      'buttons',
+    ];
+
+    return $this->respondWithView('view', [
+      'items' => $items,
+      'item' => $item,
+      'type' => 'customer',
+      'title' => $this->lang->line('page_title_customer'),
+    ]);
+  }
 }

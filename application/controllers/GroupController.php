@@ -148,4 +148,34 @@ class GroupController extends MY_Controller
     $this->addFlash($this->lang->line('notice_action_200'), 'success');
     return $this->redirect('groups');
   }
+
+  public function view($id) {
+    $this->requiresPermission('group/view');
+    $this->topnavBack = 'groups';
+    /** @var Group $model */
+    $model = $this->Group;
+
+    $item = $model->getById($id);
+    if (!$item) {
+      $this->addFlash($this->lang->line('notice_no_such_x_404'), 'error');
+      return $this->redirect('groups');
+    }
+
+    $admin = $item->getAdmin($this->User);
+
+    $items = [
+      [$this->lang->line('table_groups_name'), htmlspecialchars($item->name)],
+      [$this->lang->line('table_groups_admin'), '<a href="' . ($admin ?
+        base_url('user/'.$admin->id) : '#') . '">' . ($admin ? $admin->username : '') . '</a>'],
+      [$this->lang->line('table_create_ts'), $item->create_datetime],
+      'buttons',
+    ];
+
+    return $this->respondWithView('view', [
+      'items' => $items,
+      'item' => $item,
+      'type' => 'group',
+      'title' => $this->lang->line('page_title_group'),
+    ]);
+  }
 }

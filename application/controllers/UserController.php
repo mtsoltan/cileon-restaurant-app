@@ -264,6 +264,60 @@ class UserController extends MY_Controller
     return $this->redirect('users');
   }
 
+  public function view($id) {
+    $this->topnavBack = 'users';
+    /** @var User $model */
+    $model = $this->User;
+
+    $item = $model->getById($id);
+    $proceed =
+      $item
+      && (
+        $this->user->hasPermission('user/view')
+        || (
+          $this->user->hasPermission('user/own')
+          &&
+          $this->user->group_id == $item->group_id
+        )
+      );
+
+    if (!$proceed) {
+      $this->addFlash($this->lang->line('notice_no_such_x_404'), 'error');
+      return $this->redirect('users');
+    }
+
+    $group = $item->getGroup($this->Group);
+
+    $items = [
+      [$this->lang->line('table_users_username'), $item->username],
+      [$this->lang->line('table_users_email'), $item->email],
+      [$this->lang->line('table_users_notes'), htmlspecialchars($item->state_text)],
+    ];
+
+    if ($this->user->hasPermission('admin')) {
+      $items = array_merge($items, [
+        [$this->lang->line('table_users_last_login'), $item->login_datetime],
+        [$this->lang->line('table_users_ip'), $item->ip],
+        [$this->lang->line('table_users_class'), $this->lang->line('class_' . $item->class)],
+      ]);
+      if ($group) {
+        $items[] =
+          [$this->lang->line('table_users_group_id'), '<a href="' . ($item->group_id ?
+            base_url('group/'.$item->group_id) : '#') . '">' . ($group ? $group->name : '') . '</a>'];
+      }
+      $items[] = [$this->lang->line('table_create_ts'), $item->create_datetime];
+    }
+
+    $items[] = 'buttons';
+
+    return $this->respondWithView('view', [
+      'items' => $items,
+      'item' => $item,
+      'type' => 'user',
+      'title' => $this->lang->line('page_title_user'),
+    ]);
+  }
+
   protected function getBrowser()
   {
     if ($this->agent->is_browser()) {
