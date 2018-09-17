@@ -28,11 +28,47 @@ class GroupController extends MY_Controller
 
     /** @var Group $groupModel */
     $groupModel = $this->Group;
+    $group = $this->user->getGroup($groupModel);
+    if (!$group) {
+      $this->addFlash($this->lang->line('notice_no_such_x_404'), 'error');
+      return $this->redirect('groups');
+    }
 
-    return $this->respondWithView('group/own', [
-      'item' => $this->user->getGroup(),
-      'title' => $this->lang->line('page_title_settings'),
+    $_POST = array_merge($_POST, $group->getData()); // Dirty fix.
+
+    return $this->respondWithView('group/form', [
+      'title' => $this->lang->line('page_title_group_edit', $group->name),
+      'form_layout' => true,
+      'edit' => true,
+      'own' => true,
     ]);
+  }
+
+  public function handleEditOwn()
+  {
+    $this->requiresPermission('group/own');
+    if (!$this->user->group_id)
+      return $this->showError(403, 'notice_permission_403');
+
+    /** @var Group $groupModel */
+    $groupModel = $this->Group;
+    $group = $this->user->getGroup($groupModel);
+    if (!$group) {
+      $this->addFlash($this->lang->line('notice_no_such_x_404'), 'error');
+      return $this->redirect('settings');
+    }
+
+    $this->setValidationRules();
+
+    if(!$this->form_validation->run()) { // If form did not validte.
+      return $this->editOwn();
+    }
+
+    $group->name = $this->input->post('name');
+    $group->save();
+
+    $this->addFlash($this->lang->line('notice_action_200'), 'success');
+    return $this->redirect('dashboard');
   }
 
   private function setValidationRules() {
