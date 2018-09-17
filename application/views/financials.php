@@ -1,0 +1,1 @@
+<?= $this->lang->line('financials', $num_orders, $total); ?>

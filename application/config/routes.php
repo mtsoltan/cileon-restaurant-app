@@ -63,9 +63,10 @@ $route['reset']['POST'] = 'UserController/handleReset';
 // ============== //
 
 // General Routes
-$route['logout']     [ 'GET'] = 'UserController/logout';
-$route['dashboard']  [ 'GET'] = 'IndexController/dashboard';
-$route['admin/stats'][ 'GET'] = 'AdminController/stats'; // TODO: not done
+$route['logout']       [ 'GET'] = 'UserController/logout';
+$route['dashboard']    [ 'GET'] = 'IndexController/dashboard';
+$route['dashboard/api'][ 'GET'] = 'IndexController/xhrFinancials';
+$route['admin/stats']  [ 'GET'] = 'AdminController/stats'; // TODO: not done
 
 // Product Routes
 $route['products']             [ 'GET'] = 'ProductController/index';
@@ -86,7 +87,7 @@ $route['order/add']          [ 'GET'] = 'OrderController/add';
 $route['order/add']          ['POST'] = 'OrderController/handleAdd';
 $route['order/(:num)']       [ 'GET'] = 'OrderController/view/$1'; // TODO: not done
 
-// TODO: Financial Calculations, order printing
+// TODO: order printing
 
 // Customers Routes
 $route['customers']             [ 'GET'] = 'CustomerController/index';

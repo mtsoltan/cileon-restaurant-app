@@ -30,4 +30,30 @@ class IndexController extends MY_Controller {
       'table_layout' => true,
     ]);
   }
+
+  public function xhrFinancials() {
+    $this->isPrivate();
+    $this->load->model('Order');
+    $this->load->model('Product');
+
+    $from = new DateTime($this->input->get('from'));
+    $from->setTime(0, 0, 0);
+    $fromTs = $from->getTimestamp();
+    $to = new DateTime($this->input->get('to'));
+    $to->setTime(23, 59, 59);
+    $toTs = $to->getTimestamp();
+
+    /** @var Order $model */
+    $model = $this->Order;
+    $items = $model->getFinalized($this->user->group_id, $fromTs, $toTs);
+    $total = 0;
+    foreach ($items as $item) {
+      $total += $item->total_price;
+    }
+
+    return $this->load->view('financials', [
+      'total' => $total,
+      'num_orders' => count($items),
+    ]);
+  }
 }

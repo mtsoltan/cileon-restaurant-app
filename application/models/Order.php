@@ -34,10 +34,17 @@ class Order extends MY_Model {
     ]);
   }
 
-  public function getFinalized($group_id) {
-    return $this->getByData([
+  public function getFinalized($group_id, $startTimestamp = null, $endTimestamp = null) {
+    $data = [
       'group_id' => $group_id,
       'state' => self::STATES['finalized'],
-    ]);
+    ];
+    if ($startTimestamp) {
+      $data['create_timestamp >'] = $startTimestamp;
+    }
+    if ($endTimestamp) {
+      $data['create_timestamp <'] = $endTimestamp;
+    }
+    return $this->getByData($data);
   }
 }
