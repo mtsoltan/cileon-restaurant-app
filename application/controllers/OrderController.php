@@ -68,7 +68,7 @@ class OrderController extends MY_Controller
       return $this->redirectToHome();
     }
 
-    // $this->requiresPermission('order/edit');
+    $this->requiresPermission('order/edit');
     $this->topnavBack = 'dashboard';
 
     $_POST = array_merge($_POST, $item->getData()); // Dirty fix.
@@ -111,13 +111,16 @@ class OrderController extends MY_Controller
 
   public function handleEdit($id)
   {
+    if ($this->input->get('action')) {
+      return $this->edit($id);
+    }
+
     $this->requiresPermission('order/view');
-    return false; // FIXME: handleEdit
 
     /** @var Order $model */
     $model = $this->Order;
     $item = $model->getById($id);
-    if (!$item) {
+    if (!$item || $item->group_id !== $this->user->group_id) {
       $this->addFlash($this->lang->line('notice_no_such_x_404'), 'error');
       return $this->redirect('dashboard');
     }
@@ -130,18 +133,57 @@ class OrderController extends MY_Controller
       return $this->edit($id);
     }
 
-    $fillable = '';
-    if (!$item->isUnique($fillable)) {
-      $this->addFlashNow($this->lang->line('notice_order_repeated', $fillable), 'error');
-      return $this->edit($id);
+    $cart = array();
+    $sum = 0;
+    $tax = floatval($this->input->post('tax'));
+    $customerId = $this->input->post('customer_id');
+    $customer = $this->Customer->getById($customerId);
+
+    if (!$customer || $customer->group_id !== $this->user->group_id) {
+      $this->addFlash($this->lang->line('notice_no_such_x_404'), 'error');
+      return $this->add();
     }
 
-    if ($this->user->hasPermission('order/edit')) {
-      $item->name = $this->input->post('name');
-      $item->contact = $this->input->post('contact');
-      $item->num_purchases = $this->input->post('num_purchases');
+    $address = $this->input->post('address') ?
+      $this->input->post('address') :
+      $item->address;
+
+    $oldProduct = $item->getCart();
+    foreach ($oldProducts as $oldProduct) {
+      $oldProduct->num_purchases -= $oldProduct->quantity;
+      $oldProduct->save();
     }
-    $item->address = $this->input->post('address');
+
+    $productIds = $this->input->post('product_assigned_id[]');
+    foreach($productIds as $key => $productId) {
+      $products = $this->Product->getByData(['assigned_id' => $productId, 'group_id' => $this->user->group_id]);
+      $product = count($products) ? $products[0] : null;
+      if($product && $this->input->post('product_quantity[]')[$key]) {
+        $qty = intval($this->input->post('product_quantity[]')[$key]);
+        $sum += $product->price * (1 + $product->tax / 100) * $qty;
+        $cart[] = [$productId, $this->input->post('product_quantity[]')[$key]];
+        $product->num_purchases += $qty;
+        $product->save();
+      }
+    }
+    $item->cart = serialize($cart);
+
+    if ($customer->id != $item->customer_id) {
+      $customer->num_purchases += 1;
+      $customer->save();
+      $oldCustomer = $this->Customer->getById($item->customer_id);
+      $oldCustomer->num_purchases -= 1;
+      $oldCustomer->save();
+      $item->customer_id = $customer->id;
+    }
+
+    // Set the data for item creation.
+    $item->user_id = $this->user->id;
+    // TODO: Changing states.
+    $item->tax = number_format($tax, 2, '.', '');
+    $item->total_price = number_format($sum * (1 + $tax / 100), 2, '.', '');
+    $itemaddress = $address;
+
     $item->save();
 
     $this->addFlash($this->lang->line('notice_action_200'), 'success');
@@ -232,7 +274,7 @@ class OrderController extends MY_Controller
       'address' => $address,
     ]);
 
-    $customer->num_purchases = $customer->num_purchases + 1;
+    $customer->num_purchases += 1;
     $customer->save();
 
     if (!$item) {
