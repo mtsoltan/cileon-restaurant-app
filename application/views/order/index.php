@@ -26,15 +26,8 @@
                 <?= $customer ? htmlspecialchars($customer->name) : '' ?></a></td>
             <td><?= htmlspecialchars($item->address) ?></td>
             <?php
-            $cart = $item->getCart($this->Product);
-            $html_cart = '';
-            $price = 0;
-            foreach ($cart as $element) {
-              $element_price = $element->price * (1 + $element->tax / 100) * $element->quantity;
-              $price += $element_price;
-              $html_cart .= $element->quantity . ' x ' . $element->name . ' = ' .
-                $this->lang->line('c') . number_format($element_price, 2, '.', '') . '<br>';
-            }
+            list($html_cart, $price) = $item->getCartStrings($this->Product);
+            $html_cart = implode('<br>', $html_cart);
             ?>
             <td><?= $html_cart ?></td>
             <td><?= floatval($item->tax) . $this->lang->line('p') ?> (<?= $this->lang->line('c') . number_format($price * $item->tax / 100, 2, '.', '') ?>)</td>

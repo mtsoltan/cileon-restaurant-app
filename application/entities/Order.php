@@ -49,4 +49,24 @@ class Order extends Entity {
     }
     return $rv;
   }
+
+  /**
+   * @param \MY_Controller $diThis
+   * @return array [string[], number]
+   */
+  public function getCartStrings($diThis) {
+    if (!isset($diThis->Product)) {
+      $diThis->load->model('Product');
+    }
+    $cart = $this->getCart($diThis->Product);
+    $cartString = [];
+    $price = 0;
+    foreach ($cart as $element) {
+      $element_price = $element->price * (1 + $element->tax / 100) * $element->quantity;
+      $price += $element_price;
+      $cartString[]= $element->quantity . ' x ' . htmlspecialchars($element->name) . ' = ' .
+        $diThis->lang->line('c') . number_format($element_price, 2, '.', '') . '<br>';
+    }
+    return [$cartString, $price];
+  }
 }
