@@ -13,10 +13,9 @@ class MY_Lang extends CI_Lang {
    * @param bool  $log_errors Whether to log an error message if the line is not found
    * @return  string  Translation
    */
-  public function line($line, ...$sprintfArgs)
+  public function line($line, $log_error = true, ...$sprintfArgs)
   {
-    if (!count($sprintfArgs)) return parent::line($line);
-    if (count($sprintfArgs) === 1 && $sprintfArgs[0] === true) return parent::line($line, true);
-    return sprintf(parent::line($line), ...$sprintfArgs);
+    if (!count($sprintfArgs) && $log_error === true) return parent::line($line, true);
+    return sprintf(parent::line($line), $log_error, ...$sprintfArgs);
   }
 }

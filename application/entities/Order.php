@@ -65,7 +65,7 @@ class Order extends Entity {
       $element_price = $element->price * (1 + $element->tax / 100) * $element->quantity;
       $price += $element_price;
       $cartString[]= $element->quantity . ' x ' . htmlspecialchars($element->name) . ' = ' .
-        $diThis->lang->line('c') . number_format($element_price, 2, '.', '') . '<br>';
+        $diThis->lang->line('c') . number_format($element_price, 2, '.', '');
     }
     return [$cartString, $price];
   }
