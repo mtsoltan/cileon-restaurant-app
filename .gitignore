@@ -4,7 +4,12 @@ Thumbs.db
 
 # Unwanted Folders.
 codeignite/
-public/assets/
+# Minified files.
+**/*.min.js
+**/*.min.css
+# Folders inside asset folders (libraries)
+public/assets/*/*/
+
 # Sync and backup these folders separately, or use a dependency manager for them in the future.
 
 # Development Files

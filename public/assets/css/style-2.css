@@ -1,0 +1,103 @@
+.container-fluid {
+  padding: 1rem;
+}
+
+.text-black
+{
+  color: #000;
+}
+
+.small-gutter
+{
+  padding-left: 15px!important;
+  padding-right: 15px!important;
+}
+
+.ml-small {
+  margin-left: .5rem!important;
+}
+
+.ml-large {
+  margin-left: 2rem;
+}
+
+.mr-small {
+  margin-right: .5rem;
+}
+
+.font-lg {
+  font-size: 1.2rem;
+}
+
+.mb-0 {
+  margin-bottom: 0;
+}
+
+.choice {
+    padding-left: 10%;
+}
+.rights {
+  position: absolute;
+  right: 0;
+}
+.row .col {
+    padding: 0;
+}
+
+.sidenav{
+  width: 100%;
+}
+
+.infosec {
+    border: 2px solid #616161;
+    background-color: #616161;
+    height: 15%;
+    width: 100%;
+}
+
+.compname {
+  padding: 1rem;
+}
+
+.firstblock {
+    background-color: #FAFAFA;
+    height: 80%;
+    min-height: 880px;
+    width: 100%;
+    padding: 1rem;
+}
+
+.topbar {
+    background-color: #757575;
+    height: 30px;
+    width: 100%;
+}
+
+.topsecbar {
+    background-color: #D7D7D7;
+    height: 50px;
+    width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+/* The developer put those here. Fix them if you want. */
+.topsecbar.valign-wrapper .btn { margin-right: 4px; }
+.col .row { margin: 0 }
+.select-wrapper input.select-dropdown { display: inline-block; }
+.input-field input { color: inherit; }
+.inline { display: inline-block; }
+select { display:inline-block; }
+.notices { text-align: center; }
+.success { background-color: #c6ffc6; }
+.warning { background-color: #fff1c1; }
+.error { background-color: #ffc1c1; }
+.hidden { display: none; }
+.dataTables_filter { margin-right: 1em; }
+.dataTables_length { margin-left: 1em; }
+.dataTables_paginate { margin-right: 1em; }
+.dataTables_info { margin-left: 1em; }
+hr.wide { height: 2px; background: #666666; }
+.product_price { margin-top: 2em; text-align: right; padding-right: 1em !important; }
+.dense-actions > * { margin-bottom: 0.3em; display: inline-block; }
+table.highlight>tbody>tr:hover { background-color: rgba(0,0,0,0.1) }
