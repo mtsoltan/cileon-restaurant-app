@@ -26,6 +26,7 @@ class MY_Controller extends CI_Controller {
   public function __construct()
   {
     parent::__construct();
+    // $this->load->library('migration'); // Uncomment this line whenever you want to migrate.
 
     $this->lang->load('strings');
     $this->load->model('User');
