@@ -170,6 +170,7 @@ class MY_Controller extends CI_Controller {
   protected function loadDefaultVars()
   {
     $defaults = [
+      // 'cdn' => true, // Uncomment this line to fetch scripts and styles from CDN instead of from server.
       'style' => '2',
       'title' => 'Cileon Rest',
       'sidenav' => true,

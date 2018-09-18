@@ -1,0 +1,45 @@
+Listed here are the gitignored dependency files that should be copied over from another instance of this project or downloaded from their original sources.
+Environment specific configuration files are also listed here, with the examples needed to recreate them listed in parentheses beside them.
+
+application/config/private.php (Recreate from private.php.production following private.php.example)
+codeignite/
+public/
+|   environment.php (Recreate from environment.php.production following environment.php.example)
+|   assets
+|   |   css
+|   |   |   cdn
+|   |   |   |   icon.css
+|   |   |   |   jquery.dataTables.min.css
+|   |   |   |   materialize.min.css
+|   |   |   jqueryui
+|   |   |   |   jquery-ui.min.css
+|   |   |   |   jquery-ui.structure.min.css
+|   |   |   |   jquery-ui.theme.min.css
+|   |   |   |   images
+|   |   |   |   |   ui-icons_444444_256x240.png
+|   |   |   |   |   ui-icons_555555_256x240.png
+|   |   |   |   |   ui-icons_777620_256x240.png
+|   |   |   |   |   ui-icons_777777_256x240.png
+|   |   |   |   |   ui-icons_cc0000_256x240.png
+|   |   |   |   |   ui-icons_ffffff_256x240.png
+|   |   fonts
+|   |   |   cdn
+|   |   |   |   material-icons.woff2
+|   |   |   roboto
+|   |   |   |   Roboto-Bold.woff
+|   |   |   |   Roboto-Bold.woff2
+|   |   |   |   Roboto-Light.woff
+|   |   |   |   Roboto-Light.woff2
+|   |   |   |   Roboto-Medium.woff
+|   |   |   |   Roboto-Medium.woff2
+|   |   |   |   Roboto-Regular.woff
+|   |   |   |   Roboto-Regular.woff2
+|   |   |   |   Roboto-Thin.woff
+|   |   |   |   Roboto-Thin.woff2
+|   |   js
+|   |   |   cdn
+|   |   |   |   jquery.dataTables.min.js
+|   |   |   |   jquery-3.2.1.min.js
+|   |   |   |   materialize.min.js
+|   |   |   jquery-ui.min.js
+

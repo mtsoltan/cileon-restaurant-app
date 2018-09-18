@@ -2,36 +2,35 @@
 <html>
   <head>
     <base href="<?php echo base_url(); ?>" >
-    <!--Import Google Icon Font-->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!--Import materialize.css-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+    <link rel="stylesheet"
+      href="<?= isset($cdn) ? 'https://fonts.googleapis.com/icon?family=Material+Icons' : 'assets/css/cdn/icon.css' ?>">
+    <link rel="stylesheet"
+      href="<?= isset($cdn) ? 'https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css' : 'assets/css/cdn/materialize.min.css' ?>">
     <?php if (isset($table_layout)): ?>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"/>
+    <link rel="stylesheet" type="text/css"
+      href="<?= isset($cdn) ? 'https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css' : 'assets/css/cdn/jquery.dataTables.min.css' ?>">
     <?php endif ?>
     <?php if (isset($styles)) {
       foreach ($styles as $item) {
-        echo '<link rel="stylesheet" type="text/css" href="' . $item . '"/>';
+        echo '<link rel="stylesheet" type="text/css" href="' . $item . '">';
       }
     } ?>
-    <link type="text/css" rel="stylesheet" href="/assets/css/style-<?= $style ?>.css?v=1">
-
-    <!--Let browser know website is optimized for mobile-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link type="text/css" rel="stylesheet" href="assets/css/style-<?= $style ?>.css?v=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $title ?></title>
-
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript"
+      src="<?= isset($cdn) ? 'https://code.jquery.com/jquery-3.2.1.min.js' : 'assets/js/cdn/jquery-3.2.1.min.js' ?>"></script>
     <!-- Materialize loads faster when placed at end of body, but for convenience, we'll place it here. -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+    <script src="<?= isset($cdn) ? 'https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js' : 'assets/js/cdn/materialize.min.js' ?>"></script>
     <script>
     $.autocomplete = undefined;
     SURE_MSG = "<?= $this->lang->line('confirm_action'); ?>";
     </script>
-    <script type="text/javascript" src="/assets/js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="assets/js/jquery-ui.min.js"></script>
     <?php if (isset($table_layout)): ?>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="<?= isset($cdn) ? 'https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js' : 'assets/js/cdn/jquery.dataTables.min.js' ?>"></script>
     <?php endif ?>
-    <script src="/assets/js/main.js"></script>
+    <script src="assets/js/main.js"></script>
   </head>
   <body>
     <div class="notices">
