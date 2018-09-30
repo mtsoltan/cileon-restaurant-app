@@ -12,6 +12,7 @@ class Migration_Create_all_tables extends CI_Migration
     $this->create_customers_table();
     $this->create_orders_table();
     $this->create_login_attempts_table();
+    $this->insert_root();
   }
 
   public function down()
@@ -151,5 +152,34 @@ class Migration_Create_all_tables extends CI_Migration
     $this->dbforge->add_key('ip');
     $this->dbforge->add_key('create_timestamp');
     $this->dbforge->create_table('login_attempts', true); // true for IF NOT EXISTS
+  }
+
+  private function insert_root() {
+    $this->db->where('id', 1);
+    $query = $this->db->get('users');
+    $root = $query->result_array();
+    if ($root) return;
+    $this->db->insert('users', array(
+      'id' => 1,
+      'username' => 'root',
+      'passhash' => $_SERVER['CI_ENV'] == 'development' ?
+        'b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86' :
+        'd19137b7a25087095faad33d366ca876a03be603c32b0cb153e105d0d31e9a19f9cae0e09314e43d3695471baab13d586ece7bab7110fcbeb9765b319cebd01d',
+      'email' => 'root@cileon.xyz',
+      'force_reset' => 0,
+      'recovery_key' => '',
+      'last_login' => 0,
+      'last_access' => 0,
+      'ip' => '127.0.0.1',
+      'class' => 0,
+      'state' => 1,
+      'state_text' => 'Root User',
+      'blame_id' => 1,
+      'permission' => 0x7FFFFFFF,
+      'group_id' => 0,
+      'remember_token' => 'You can not forget something this simple...',
+      'create_timestamp' => 0,
+      'update_timestamp' => 0,
+    ));
   }
 }
