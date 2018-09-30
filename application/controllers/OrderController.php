@@ -321,7 +321,7 @@ class OrderController extends MY_Controller
     return $this->respondWithView('view', [
       'items' => $items,
       'item' => $item,
-      'type' => 'customer',
+      'type' => 'order',
       'title' => $this->lang->line('page_title_customer'),
     ]);
   }
