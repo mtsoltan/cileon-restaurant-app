@@ -24,6 +24,23 @@
         }
       }
       ?>
+      <?php if (isset($sidenav) && $sidenav && is_string($sidenav)): ?>
+        <ul id="slide-out" class="sidenav default-sidenav right-aligned">
+          <div class="infosec">
+            <div class="white-text compname">
+              <h4><?php if(isset($logged_user_group) && $logged_user_group) echo $logged_user_group->name; else echo $this->lang->line('dev_missing_usergroup'); ?></h4>
+            </div>
+          </div>
+          <?php $sidenav_for('', '<li>%s</li>'); ?>
+        </ul>
+        <a class="btn-floating btn-small waves-effect waves-light blue-grey darken-3 rights mr-small sidenav-trigger" data-target="slide-out">
+          <i class="material-icons">menu</i></a>
+        <script>
+          $(document).ready(function(){
+            $('.sidenav').sidenav({'edge' : 'right'});
+          });
+        </script>
+      <?php endif; ?>
     </div>
   </div>
 </div>

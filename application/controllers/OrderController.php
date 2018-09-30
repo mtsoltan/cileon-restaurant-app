@@ -99,6 +99,7 @@ class OrderController extends MY_Controller
 
     return $this->respondWithView('order/form', [
       'title' => $this->lang->line('page_title_order_edit', $item->serial),
+      'sidenav' => 'order/side', // Special nav and formlayout are added manually in form view.
       'form_layout' => true,
       'edit' => true,
       'styles' => [
@@ -214,6 +215,7 @@ class OrderController extends MY_Controller
 
     return $this->respondWithView('order/form', [
       'title' => $this->lang->line('page_title_order_add'),
+      'sidenav' => 'order/side', // Special nav and formlayout are added manually in form view.
       'form_layout' => true,
       'styles' => [
         '/assets/css/jqueryui/jquery-ui.min.css',

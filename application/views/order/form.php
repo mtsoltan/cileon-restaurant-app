@@ -1,43 +1,5 @@
 <?= form_open('order/' . (isset($edit) && $edit ? 'edit/' . $this->input->post('id') : 'add')) ?>
-  <?php $this->load->view('templates/fieldinput', [
-    'name' => 'customer_id',
-    'disabled' => true,
-    'langline' => 'form_field_customersrc',
-    'properties' => [
-      'type' => 'text',
-      'required' => true,
-    ]
-  ]); ?>
-  <div class="row">
-  <?php $this->load->view('templates/fieldinput', [
-    'name' => 'customer_name',
-    'langline' => 'form_field_customername',
-    'properties' => [
-      'disabled' => true,
-      'type' => 'text',
-      'parent-class' => ' col s6',
-      'required' => true,
-    ]
-  ]); ?>
-  <?php $this->load->view('templates/fieldinput', [
-    'name' => 'customer_contact',
-    'langline' => 'form_field_customercont',
-    'properties' => [
-      'disabled' => true,
-      'type' => 'text',
-      'parent-class' => ' col s6',
-      'required' => true,
-    ]
-  ]); ?>
-  </div>
-  <?php $this->load->view('templates/fieldtextarea', [
-    'name' => 'customer_address',
-    'langline' => 'form_field_customeraddr',
-    'properties' => [
-      'disabled' => true,
-      'required' => true,
-    ]
-  ]); ?>
+  <input type="hidden" value="" id="final_customer_id" name="customer_id">
   <?php $this->load->view('templates/fieldcheckbox', [
     'name' => 'usediff',
     'langline' => 'form_desc_usediffaddr',

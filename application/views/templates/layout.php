@@ -43,11 +43,14 @@
     } ?>
     </div>
     <div class="row">
-    <?php if (isset($sidenav) && $sidenav) $this->load->view('templates/sidenav.php'); ?>
+      <?php if (isset($sidenav) && $sidenav) {
+        if (!is_string($sidenav)) $this->load->view('templates/sidenav');
+        else $this->load->view($sidenav);
+      } ?>
       <div class="col <?= isset($sidenav) && $sidenav ? 's9' : 's12' ?>">
         <?php if ( (isset($topnav_items) && $topnav_items) ||
                    (isset($topnav_back)  &&  $topnav_back) )
-                $this->load->view('templates/topnav.php'); ?>
+                $this->load->view('templates/topnav'); ?>
         <?php if (isset($form_layout) && $form_layout): ?>
         <div class="row">
           <div class="col m3"></div>

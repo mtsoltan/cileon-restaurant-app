@@ -62,6 +62,7 @@ function recalculateTax(ev) {
 function getFromCustomersArray(id) {
   selected = customers[id];
   if (!selected) return;
+  $('#final_customer_id').val(id);
   $('#customer_name').val(selected.name).removeClass('invalid').addClass('valid');
   $('label[for=customer_name]').addClass('active');
   $('#customer_contact').val(selected.contact).removeClass('invalid').addClass('valid');

@@ -44,7 +44,7 @@
     padding: 0;
 }
 
-.sidenav{
+.sidenav:not(.default-sidenav) {
   width: 100%;
 }
 
@@ -101,3 +101,4 @@ hr.wide { height: 2px; background: #666666; }
 .product_price { margin-top: 2em; text-align: right; padding-right: 1em !important; }
 .dense-actions > * { margin-bottom: 0.3em; display: inline-block; }
 table.highlight>tbody>tr:hover { background-color: rgba(0,0,0,0.1) }
+.firstblock { min-height: initial; }
