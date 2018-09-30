@@ -5,7 +5,12 @@
       <small><?php if(isset($title)) echo $title; else echo $this->lang->line('dev_missing_title'); ?></small>
     </div>
   </div>
-  <div class="firstblock">
+  <div class="firstblock" id="customer-fields">
+    <?php $this->load->view('templates/fieldcheckbox', [
+      'name' => 'new_customer',
+      'langline' => 'form_desc_newcustomer',
+      'properties' => ($this->input->post('new_customer') ? ['checked' => true] :[])
+    ]); ?>
     <?php $this->load->view('templates/fieldinput', [
       'name' => 'customer_id',
       'disabled' => true,
@@ -24,6 +29,7 @@
         'type' => 'text',
         // 'parent-class' => ' col s6',
         'required' => true,
+        'class' => 'customer-field',
       ]
     ]); ?>
     <?php $this->load->view('templates/fieldinput', [
@@ -34,6 +40,7 @@
         'type' => 'text',
         // 'parent-class' => ' col s6',
         'required' => true,
+        'class' => 'customer-field',
       ]
     ]); ?>
     </div>
@@ -43,6 +50,7 @@
       'properties' => [
         'disabled' => true,
         'required' => true,
+        'class' => 'customer-field',
       ]
     ]); ?>
   </div>

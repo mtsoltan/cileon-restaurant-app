@@ -102,6 +102,7 @@ $lang['form_desc_order_addprods']= 'Add products to this order:';
 $lang['form_desc_order_totaltax']= 'Total Tax:';
 $lang['form_desc_order_tp']      = 'Total Price:';
 $lang['form_desc_withouttax']    = 'w/o Tax';
+$lang['form_desc_newcustomer']   = 'New Customer';
 
 $lang['form_field_sql']          = 'SQL';
 $lang['form_field_sql_ph']       = 'Type your SQL here.';

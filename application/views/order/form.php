@@ -1,5 +1,10 @@
 <?= form_open('order/' . (isset($edit) && $edit ? 'edit/' . $this->input->post('id') : 'add')) ?>
-  <input type="hidden" value="" id="final_customer_id" name="customer_id">
+  <input type="hidden" name="new_customer">
+  <input type="hidden" name="customer_id">
+  <input type="hidden" name="customer_name">
+  <input type="hidden" name="customer_contact">
+  <input type="hidden" name="customer_address">
+
   <?php $this->load->view('templates/fieldcheckbox', [
     'name' => 'usediff',
     'langline' => 'form_desc_usediffaddr',

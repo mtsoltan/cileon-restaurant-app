@@ -14,6 +14,21 @@ $(document).ready(function(){
     return false;
   });
 
+  // Allow adding new customers.
+  $('#new_customer').on('change', function(ev) {
+    this.checked ? $('.customer-field').removeAttr('disabled') :
+      $('.customer-field').attr('disabled', 'disabled').val('').removeClass('valid').removeClass('invalid');
+  });
+
+  // Copy customer form over on submit.
+  $('form').on('submit', function(ev) {
+    let $customerInputs = $('#customer-fields input');
+    for (let i = 0; i < $customerInputs.length; i++) {
+      console.log(this[$customerInputs[i].name]);
+      this[$customerInputs[i].name].value = $customerInputs[i].value
+    }
+  });
+
   // Setup autocomplete for customers.
   $('#customer_id').autocomplete({
     minLength: type_minlength,
@@ -62,7 +77,6 @@ function recalculateTax(ev) {
 function getFromCustomersArray(id) {
   selected = customers[id];
   if (!selected) return;
-  $('#final_customer_id').val(id);
   $('#customer_name').val(selected.name).removeClass('invalid').addClass('valid');
   $('label[for=customer_name]').addClass('active');
   $('#customer_contact').val(selected.contact).removeClass('invalid').addClass('valid');
