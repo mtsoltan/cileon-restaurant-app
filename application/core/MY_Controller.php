@@ -4,10 +4,35 @@ defined('BASEPATH') or exit('No direct script access allowed');
 // The Actual Restaurant Controller Base
 class MY_Controller extends CI_Controller {
 
-  /** @var \Entity\User $user */
-  protected $user;
+  // Autocomplete entries
+  /** @var CI_Form_validation $form_validation */
+  public $form_validation;
+  /** @var CI_Lang $lang */
+  public $lang;
+  /** @var CI_Input $input */
+  public $input;
+  /** @var CI_Session $session */
+  public $session;
+  /** @var CI_User_agent $agent */
+  public $agent;
 
-  /** @var array */
+  /** @var Order $Order */
+  public $Order;
+  /** @var Customer $Customer */
+  public $Customer;
+  /** @var Product $Product */
+  public $Product;
+  /** @var User $User */
+  public $User;
+  /** @var Group $Group */
+  public $Group;
+  /** @var LoginAttempt $LoginAttempt */
+  public $LoginAttempt;
+
+  /** @var \Entity\User $user */
+  public $user;
+
+  /** @var array $flashNow */
   protected $flashNow = array();
 
   /** @var array $topnavItems
@@ -77,6 +102,7 @@ class MY_Controller extends CI_Controller {
    *
    * @param array $array
    * @param number $status
+   * @return void
    * @see MY_Controller::ajaxRespondWithJson
    */
   protected function respondWithJson($array, $status = 200)

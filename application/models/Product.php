@@ -15,6 +15,10 @@ class Product extends MY_Model {
     return 'products';
   }
 
+  /**
+   * @param array $data
+   * @return \Entity\Product
+   */
   public function entityBuilder(array $data) {
     return new \Entity\Product($data, $this);
   }

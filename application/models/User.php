@@ -53,6 +53,10 @@ class User extends MY_Model {
     return 'users';
   }
 
+  /**
+   * @param array $data
+   * @return \Entity\User
+   */
   public function entityBuilder(array $data) {
     return new \Entity\User($data, $this);
   }
@@ -94,7 +98,7 @@ class User extends MY_Model {
    * Returns false when no match is found.
    * @param string $username
    * @param string $password
-   * @return boolean|array
+   * @return boolean|\Entity\User
    */
   public function validateLogin($username, $password) {
     $users = $this->getByData(array(

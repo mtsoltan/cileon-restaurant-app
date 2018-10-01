@@ -17,6 +17,10 @@ class Customer extends MY_Model {
     return 'customers';
   }
 
+  /**
+   * @param array $data
+   * @return \Entity\Customer
+   */
   public function entityBuilder(array $data) {
     return new \Entity\Customer($data, $this);
   }

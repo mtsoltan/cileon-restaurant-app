@@ -15,6 +15,10 @@ class Group extends MY_Model {
     return 'groups';
   }
 
+  /**
+   * @param array $data
+   * @return \Entity\Group
+   */
   public function entityBuilder(array $data) {
     return new \Entity\Group($data, $this);
   }

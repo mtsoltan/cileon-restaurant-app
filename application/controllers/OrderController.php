@@ -50,6 +50,8 @@ class OrderController extends MY_Controller
 
     /** @var Order $model */
     $model = $this->Order;
+
+    /** @var \Entity\Order $item */
     $item = $model->getById($id);
     if (!$item || $item->group_id !== $this->user->group_id) {
       $this->addFlash($this->lang->line('notice_no_such_x_404'), 'error');
@@ -120,6 +122,7 @@ class OrderController extends MY_Controller
 
     /** @var Order $model */
     $model = $this->Order;
+    /** @var \Entity\Order $item */
     $item = $model->getById($id);
     if (!$item || $item->group_id !== $this->user->group_id) {
       $this->addFlash($this->lang->line('notice_no_such_x_404'), 'error');
@@ -294,6 +297,7 @@ class OrderController extends MY_Controller
     $this->requiresPermission('order/view');
     $this->topnavBack = 'orders';
 
+    /** @var \Entity\Order $item */
     $item = $this->Order->getById($id);
     if (!$item || $item->group_id !== $this->user->group_id) {
       $this->addFlash($this->lang->line('notice_no_such_x_404'), 'error');

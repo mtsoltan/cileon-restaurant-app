@@ -8,6 +8,7 @@ class Entity {
   protected $data = [];
   protected $model;
   protected $new = false;
+  /** @var bool|array */
   protected $changed = false;
 
   public function __construct($data, $model) {

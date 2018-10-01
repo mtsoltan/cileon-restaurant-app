@@ -269,6 +269,7 @@ class UserController extends MY_Controller
     /** @var User $model */
     $model = $this->User;
 
+    /** @var \Entity\User $item */
     $item = $model->getById($id);
     $proceed =
       $item

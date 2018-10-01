@@ -36,6 +36,10 @@ class Order extends Entity {
     return $this;
   }
 
+  /**
+   * @param \Product $product_model
+   * @return \Entity\Product[]
+   */
   public function getCart($product_model) {
     $cart = unserialize($this->cart);
     $rv = [];

@@ -18,6 +18,10 @@ class Order extends MY_Model {
     return 'orders';
   }
 
+  /**
+   * @param array $data
+   * @return \Entity\Order
+   */
   public function entityBuilder(array $data) {
     return new \Entity\Order($data, $this);
   }

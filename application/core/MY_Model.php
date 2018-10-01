@@ -7,14 +7,21 @@ abstract class MY_Model extends CI_Model
 {
   const PER_PAGE = 50;
 
+  /** @var CI_DB_mysqli_driver $db */
+  public $db;
+
   public function __construct()
   {
-    require_once(APPPATH.'entities/'.get_class($this).'.php');
+    require_once(APPPATH . 'entities/' . get_class($this) . '.php');
     parent::__construct();
   }
 
   abstract public function getTableName();
 
+  /**
+   * @param array $data
+   * @return \Entity\Entity
+   */
   abstract public function entityBuilder(array $data);
 
   protected function mapResult($rows)
@@ -46,6 +53,11 @@ abstract class MY_Model extends CI_Model
     return $this->getByData([]);
   }
 
+  /**
+   * @param array $data
+   * @param callable $overload
+   * @return mixed
+   */
   public function deleteByData($data, $overload = null)
   {
     if (!is_null($overload)) $overload($this->db);
@@ -75,6 +87,11 @@ abstract class MY_Model extends CI_Model
     return $this->deleteByData(['id' => $id]);
   }
 
+  /**
+   * @param array $arr
+   * @return \Entity\Entity
+   * @throws \InvalidArgumentException
+   */
   public function createEntity($arr) {
     if (!is_array($arr)) {
       throw new \InvalidArgumentException("createEntity expects array as argument");
@@ -85,6 +102,10 @@ abstract class MY_Model extends CI_Model
     return $entity;
   }
 
+  /**
+   * @param \Entity\Entity $entity
+   * @return \Entity\Entity|null
+   */
   public function save($entity) {
     $entity = clone $entity;
 
