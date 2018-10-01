@@ -149,7 +149,7 @@ class OrderController extends MY_Controller
       $this->input->post('address') :
       $item->address;
 
-    $oldProduct = $item->getCart();
+    $oldProducts = $item->getCart($this->Product);
     foreach ($oldProducts as $oldProduct) {
       $oldProduct->num_purchases -= $oldProduct->quantity;
       $oldProduct->save();
@@ -183,7 +183,7 @@ class OrderController extends MY_Controller
     // TODO: Changing states.
     $item->tax = number_format($tax, 2, '.', '');
     $item->total_price = number_format($sum * (1 + $tax / 100), 2, '.', '');
-    $itemaddress = $address;
+    $item->address = $address;
 
     $item->save();
 
@@ -300,7 +300,7 @@ class OrderController extends MY_Controller
       return $this->redirect('customers');
     }
 
-    list($strings, $price) = $item->getCartStrings($this->Product);
+    list($strings, $price) = $item->getCartStrings($this);
     $productsString = '<ul class="browser-default"><li>' . implode('</li><li>', $strings) . '</li></ul>';
 
     $customer = $item->getCustomer($this->Customer);

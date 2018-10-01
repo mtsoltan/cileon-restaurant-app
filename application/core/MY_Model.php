@@ -38,8 +38,6 @@ abstract class MY_Model extends CI_Model
     if (!is_null($overload)) $overload($this->db);
     if (!$includeDisabled) $this->db->where(['state' => 1]);
     $query = $this->db->get($this->getTableName());
-    $result = $query->result_array();
-    if (!$result) $result = array();
     return $this->mapResult($query->result_array());
   }
 

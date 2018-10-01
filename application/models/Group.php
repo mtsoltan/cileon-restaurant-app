@@ -16,6 +16,6 @@ class Group extends MY_Model {
   }
 
   public function entityBuilder(array $data) {
-    return new \Entity\group($data, $this);
+    return new \Entity\Group($data, $this);
   }
 }

@@ -55,8 +55,8 @@ class UserController extends MY_Controller
     $loginAttemptModel->clearOldAttempts();
     $loginAttempts = $loginAttemptModel->getByData(['ip' => $ip]);
     if (($loginAttempts ? count($loginAttempts) : 0) >= $loginAttemptModel::MAXIMUM_LOGIN_ATTEMPTS) {
-      $this->addFlash($this->lang->line('notices.login_spam', $model::BAN_TIME / 3600), 'error');
-      return $this->login($request, $response);
+      $this->addFlash($this->lang->line('notices.login_spam', $loginAttemptModel::BAN_TIME / 3600), 'error');
+      return $this->login();
     }
 
     $username = $this->input->post('username');
