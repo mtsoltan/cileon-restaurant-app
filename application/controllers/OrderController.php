@@ -34,7 +34,7 @@ class OrderController extends MY_Controller
   }
 
   private function setValidationRules() {
-    // Validate name, contact, and address.
+    // Validate order information.
     $this->form_validation->set_rules('customer_id',
       $this->lang->line('form_field_customersrc'), 'trim|required|is_natural');
     $this->form_validation->set_rules('address',
@@ -43,6 +43,13 @@ class OrderController extends MY_Controller
       $this->lang->line('form_field_order_tax'), 'required|regex_match[/\d+(\.\d{2})?/]');
     $this->form_validation->set_rules('product_assigned_id[]',
       $this->lang->line('form_field_productid'), 'trim|required|is_natural');
+    // Validate customer information.
+    $this->form_validation->set_rules('customer_name',
+      $this->lang->line('form_field_customername'), 'trim|required|max_length[245]');
+    $this->form_validation->set_rules('customer_contact',
+      $this->lang->line('form_field_customercont'), 'trim|required|max_length[255]');
+    $this->form_validation->set_rules('customer_address',
+      $this->lang->line('form_field_customeraddr'), 'trim|required|max_length[1023]');
   }
 
   public function edit($id) {
@@ -241,6 +248,10 @@ class OrderController extends MY_Controller
       return $this->add();
     }
 
+    // Add the customer if the customer is new.
+    var_dump($_POST);die();
+
+    // Validate the order logic.
     $cart = array();
     $sum = 0;
     $tax = floatval($this->input->post('tax'));
@@ -254,6 +265,8 @@ class OrderController extends MY_Controller
     $address = $this->input->post('address') ?
       $this->input->post('address') :
       $customer->address;
+
+    // Validate the products logic.
     $productIds = $this->input->post('product_assigned_id[]');
     foreach($productIds as $key => $productId) {
       $products = $this->Product->getByData(['assigned_id' => $productId, 'group_id' => $this->user->group_id]);

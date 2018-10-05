@@ -13,6 +13,7 @@ abstract class MY_Model extends CI_Model
   public function __construct()
   {
     require_once(APPPATH . 'entities/' . get_class($this) . '.php');
+    $this->db = $this->__get('db'); // Enables me to declare it as public to allow for syntax highlight.
     parent::__construct();
   }
 
