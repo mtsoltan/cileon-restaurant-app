@@ -152,6 +152,7 @@ class CustomerController extends MY_Controller
     }
 
     // Set the data for item creation.
+    /** @var \Entity\Customer $item */
     $item = $model->createEntity([
       'name' => $this->input->post('name'),
       'contact' => $this->input->post('contact'),

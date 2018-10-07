@@ -6,6 +6,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Entity {
 
   protected $data = [];
+  /** @var \MY_Model */
   protected $model;
   protected $new = false;
   /** @var bool|array */

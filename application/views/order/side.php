@@ -20,7 +20,6 @@
         'required' => true,
       ]
     ]); ?>
-    <div class="row">
     <?php $this->load->view('templates/fieldinput', [
       'name' => 'customer_name',
       'langline' => 'form_field_customername',
@@ -43,7 +42,6 @@
         'class' => 'customer-field',
       ]
     ]); ?>
-    </div>
     <?php $this->load->view('templates/fieldtextarea', [
       'name' => 'customer_address',
       'langline' => 'form_field_customeraddr',
