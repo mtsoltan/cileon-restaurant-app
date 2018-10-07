@@ -15,14 +15,22 @@ $(document).ready(function(){
   });
 
   // Allow adding new customers.
+  let $cid = $('#customer-fields #customer_id');
   $('#new_customer').on('change', function(ev) {
-    this.checked ? $('.customer-field').removeAttr('disabled') :
+    if (this.checked) {
+      $('.customer-field').removeAttr('disabled');
+      $cid.attr('disabled', 'disabled').val('0');
+      $cid.parent().hide();
+    } else {
       $('.customer-field').attr('disabled', 'disabled').val('').removeClass('valid').removeClass('invalid');
+      $cid.removeAttr('disabled').val('');
+      $cid.parent().show();
+    }
   });
 
   // Copy customer form over on submit.
   $('form').on('submit', function(ev) {
-    let $customerInputs = $('#customer-fields input');
+    let $customerInputs = $('#customer-fields input, #customer-fields textarea');
     for (let i = 0; i < $customerInputs.length; i++) {
       console.log(this[$customerInputs[i].name]);
       this[$customerInputs[i].name].value = $customerInputs[i].value
@@ -57,6 +65,7 @@ $(document).ready(function(){
     this.checked ? $('#address').removeAttr('disabled') : $('#address').attr('disabled', '1');
   });
   if ($('#usediff')[0].checked) $('#usediff').change();
+  if ($('#new_customer')[0].checked) $('#new_customer').change();
 });
 
 // Recalculates the tax on the change of tax or one of the prices / qtys.

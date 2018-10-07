@@ -249,7 +249,33 @@ class OrderController extends MY_Controller
     }
 
     // Add the customer if the customer is new.
-    var_dump($_POST);die();
+    if (!$this->input->post('customer_id')) {
+      $this->requiresPermission('customer/add');
+      $cmodel = $this->Customer;
+      /** @var \Entity\Customer $newCustomer */
+      $newCustomer = $cmodel->createEntity([
+        'name' => $this->input->post('customer_name'),
+        'contact' => $this->input->post('customer_contact'),
+        'address' => $this->input->post('customer_address'),
+        'num_purchases' => 0,
+        'state' => $cmodel::STATES['enabled'],
+        'group_id' => $this->user->group_id,
+      ]);
+
+      if (!$newCustomer) {
+        $this->addFlashNow($this->lang->line('notice_db_soft_error'), 'error');
+        return $this->add();
+      }
+
+      $fillable = '';
+      if (!$newCustomer->isUnique($fillable)) {
+        $this->addFlashNow($this->lang->line('notice_customer_repeated', $fillable), 'error');
+        return $this->add();
+      }
+
+      $newCustomer = $newCustomer->save();
+      $_POST['customer_id'] = $newCustomer->id;
+    }
 
     // Validate the order logic.
     $cart = array();
