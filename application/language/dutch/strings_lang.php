@@ -132,7 +132,7 @@ $lang['table_orders_number']     = 'Order Serial Number';
 $lang['table_orders_customer_id']= 'Customer';
 $lang['table_orders_address']    = 'Order Address';
 $lang['table_orders_cart']       = 'Ordered Products';
-$lang['table_orders_tax']        = 'Order Added Tax';
+$lang['table_orders_tax']        = 'Order Total Tax';
 $lang['table_orders_tp']         = 'Order Total Price';
 
 $lang['error_404']               = '404 Page Not Found';

@@ -30,7 +30,7 @@
             $html_cart = implode('<br>', $html_cart);
             ?>
             <td><?= $html_cart ?></td>
-            <td><?= floatval($item->tax) . $this->lang->line('p') ?> (<?= $this->lang->line('c') . number_format($price * $item->tax / 100, 2, '.', '') ?>)</td>
+            <td><?= $this->lang->line('c') . $item->tax ?></td>
             <td><?= $this->lang->line('c') . $item->total_price ?></td>
             <td><?= $item->create_datetime ?></td>
             <?php if ($logged_user->hasPermission('admin')): ?>

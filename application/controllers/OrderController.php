@@ -146,7 +146,7 @@ class OrderController extends MY_Controller
 
     $cart = array();
     $sum = 0;
-    $tax = floatval($this->input->post('tax'));
+    $tax = 0;
     $customerId = $this->input->post('customer_id');
     $customer = $this->Customer->getById($customerId);
 
@@ -172,6 +172,7 @@ class OrderController extends MY_Controller
       if($product && $this->input->post('product_quantity[]')[$key]) {
         $qty = intval($this->input->post('product_quantity[]')[$key]);
         $sum += $product->price * (1 + $product->tax / 100) * $qty;
+        $tax += $product->price * $product->tax / 100 * $qty;
         $cart[] = [$productId, $this->input->post('product_quantity[]')[$key]];
         $product->num_purchases += $qty;
         $product->save();
@@ -192,7 +193,7 @@ class OrderController extends MY_Controller
     $item->user_id = $this->user->id;
     // TODO: Changing states.
     $item->tax = number_format($tax, 2, '.', '');
-    $item->total_price = number_format($sum * (1 + $tax / 100), 2, '.', '');
+    $item->total_price = number_format($sum, 2, '.', '');
     $item->address = $address;
 
     $item->save();
@@ -280,7 +281,7 @@ class OrderController extends MY_Controller
     // Validate the order logic.
     $cart = array();
     $sum = 0;
-    $tax = floatval($this->input->post('tax'));
+    $tax = 0;
     $customerId = $this->input->post('customer_id');
     $customer = $this->Customer->getById($customerId);
 
@@ -300,6 +301,7 @@ class OrderController extends MY_Controller
       if($product && $this->input->post('product_quantity[]')[$key]) {
         $qty = intval($this->input->post('product_quantity[]')[$key]);
         $sum += $product->price * (1 + $product->tax / 100) * $qty;
+        $tax += $product->price * $product->tax / 100 * $qty;
         $cart[] = [$productId, $this->input->post('product_quantity[]')[$key]];
         $product->num_purchases += $qty;
         $product->save();
@@ -314,7 +316,7 @@ class OrderController extends MY_Controller
       'state' => $model::STATES['pending'],
       'cart' => serialize($cart),
       'tax' => number_format($tax, 2, '.', ''),
-      'total_price' => number_format($sum * (1 + $tax / 100), 2, '.', ''),
+      'total_price' => number_format($sum, 2, '.', ''),
       'address' => $address,
     ]);
 
@@ -354,8 +356,7 @@ class OrderController extends MY_Controller
         '">' . ($customer ? htmlspecialchars($customer->name) : '') . '</a>'],
       [$this->lang->line('table_orders_address'), $item->address],
       [$this->lang->line('table_orders_cart'), $productsString],
-      [$this->lang->line('table_orders_tax'), floatval($item->tax) . $this->lang->line('p') . '(' .
-        $this->lang->line('c') . number_format($price * $item->tax / 100, 2, '.', '') . ')'],
+      [$this->lang->line('table_orders_tax'), $this->lang->line('c') . $item->tax],
       [$this->lang->line('table_orders_tp'), $this->lang->line('c') . $item->total_price],
       [$this->lang->line('table_create_ts'), $item->create_datetime],
       'buttons',

@@ -19,7 +19,7 @@
       'parent-class' => 'extra-addr hidden',
     ]
   ]); ?>
-  <?php $this->load->view('templates/fieldinput', [
+  <?php /* $this->load->view('templates/fieldinput', [
     'name' => 'tax',
     'langline' => 'form_field_order_tax',
     'properties' => [
@@ -29,7 +29,7 @@
       'pattern' => '\d+(\.\d{2})?',
       'value' => '0',
     ]
-  ]); ?>
+  ]); */ ?>
   <hr class="wide">
   <div class="section">
     <h5><?= $this->lang->line('form_desc_order_addprods') ?></h5>

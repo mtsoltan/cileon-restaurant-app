@@ -75,7 +75,7 @@ $route['product/edit/(:num)']  [ 'GET'] = 'ProductController/edit/$1';
 $route['product/edit/(:num)']  ['POST'] = 'ProductController/handleEdit/$1';
 $route['product/add']          [ 'GET'] = 'ProductController/add';
 $route['product/add']          ['POST'] = 'ProductController/handleAdd';
-$route['product/(:num)']       [ 'GET'] = 'ProductController/view/$1'; // TODO: not done // USES GROUP SPECIFIED ASSIGNED_IDS
+$route['product/(:num)']       [ 'GET'] = 'ProductController/view/$1'; // TODO: USES GROUP SPECIFIED ASSIGNED_IDS
 $route['product/api']          [ 'GET'] = 'ProductController/xhrGet';
 $route['product/api']          ['POST'] = 'ProductController/xhrGet';
 
@@ -85,7 +85,7 @@ $route['order/edit/(:num)']  [ 'GET'] = 'OrderController/edit/$1';
 $route['order/edit/(:num)']  ['POST'] = 'OrderController/handleEdit/$1'; // TODO: not done
 $route['order/add']          [ 'GET'] = 'OrderController/add';
 $route['order/add']          ['POST'] = 'OrderController/handleAdd';
-$route['order/(:num)']       [ 'GET'] = 'OrderController/view/$1'; // TODO: not done
+$route['order/(:num)']       [ 'GET'] = 'OrderController/view/$1';
 
 // TODO: order printing
 
@@ -109,7 +109,7 @@ $route['group/edit/(:num)']  [ 'GET'] = 'GroupController/edit/$1';
 $route['group/edit/(:num)']  ['POST'] = 'GroupController/handleEdit/$1';
 $route['group/add']          [ 'GET'] = 'GroupController/add';
 $route['group/add']          ['POST'] = 'GroupController/handleAdd';
-$route['group/(:num)']       [ 'GET'] = 'GroupController/view/$1'; // TODO: not done
+$route['group/(:num)']       [ 'GET'] = 'GroupController/view/$1';
 
 // User Routes
 $route['users']             [ 'GET'] = 'UserController/index';
@@ -118,7 +118,7 @@ $route['user/edit/(:num)']  [ 'GET'] = 'UserController/edit/$1'; // TODO: not do
 $route['user/edit/(:num)']  ['POST'] = 'UserController/handleEdit/$1'; // TODO: not done
 $route['user/add']          [ 'GET'] = 'UserController/add';
 $route['user/add']          ['POST'] = 'UserController/handleAdd';
-$route['user/(:num)']       [ 'GET'] = 'UserController/view/$1'; // TODO: not done
+$route['user/(:num)']       [ 'GET'] = 'UserController/view/$1';
 
 // Root Routes
 $route['root/sql']    [ 'GET'] = 'RootController/sql';
