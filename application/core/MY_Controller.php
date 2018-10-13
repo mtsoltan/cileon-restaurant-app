@@ -53,7 +53,7 @@ class MY_Controller extends CI_Controller {
     ['route' => 'products', 'title' => 'page_title_products', 'permission' => 'product/view', 'active' => 'product.*'],
     ['route' => 'orders', 'title' => 'page_title_orders', 'permission' => 'order/view', 'active' => 'order.*'],
     ['route' => 'customers', 'title' => 'page_title_customers', 'permission' => 'customer/view', 'active' => 'customer.*'],
-    ['route' => 'financials', 'title' => 'page_title_financials', 'permission' => 'financial/own', 'active' => 'financials'],
+    // ['route' => 'financials', 'title' => 'page_title_financials', 'permission' => 'financial/own', 'active' => 'financials'],
     ['route' => 'users', 'title' => 'page_title_users', 'permission' => 'user/own', 'active' => 'users'],
     ['route' => 'settings', 'title' => 'page_title_settings', 'permission' => 'group/own', 'active' => 'settings'],
     ['route' => 'users', 'title' => 'page_title_admin_users', 'permission' => 'user/view', 'active' => 'users'],

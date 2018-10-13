@@ -222,8 +222,8 @@ class ProductController extends MY_Controller
     /** @var Product $model */
     $model = $this->Product;
 
-    $item = $model->getById($id);
-    if (!$item || $item->group_id !== $this->user->group_id) {
+    $item = $model->getByData(['assigned_id' => $id, 'group_id' => $this->user->group_id]);
+    if (!$item) {
       $this->addFlash($this->lang->line('notice_no_such_x_404'), 'error');
       return $this->redirect('products');
     }

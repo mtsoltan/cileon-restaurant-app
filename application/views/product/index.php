@@ -17,7 +17,7 @@
       </thead>
       <tbody>
         <?php foreach($items as $item): ?>
-          <tr data-href="<?= base_url('product/'.$item->id) ?>">
+          <tr data-href="<?= base_url('product/'.$item->assigned_id) ?>">
             <td><?= $item->assigned_id ?></td>
             <td><?= htmlspecialchars($item->name) ?></td>
             <td><?= $this->lang->line('c') . $item->price ?></td>
