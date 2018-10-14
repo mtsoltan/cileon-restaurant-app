@@ -39,8 +39,6 @@ class OrderController extends MY_Controller
       $this->lang->line('form_field_customersrc'), 'trim|required|is_natural');
     $this->form_validation->set_rules('address',
       $this->lang->line('form_field_customeraddr'), 'trim|max_length[1023]');
-    $this->form_validation->set_rules('tax',
-      $this->lang->line('form_field_order_tax'), 'required|regex_match[/\d+(\.\d{2})?/]');
     $this->form_validation->set_rules('product_assigned_id[]',
       $this->lang->line('form_field_productid'), 'trim|required|is_natural');
     // Validate customer information.
