@@ -33,8 +33,12 @@ $(document).ready(function(){
     let $customerInputs = $('#customer-fields input, #customer-fields textarea');
     for (let i = 0; i < $customerInputs.length; i++) {
       console.log(this[$customerInputs[i].name]);
-      this[$customerInputs[i].name].value = $customerInputs[i].value
-    }
+      if ($customerInputs[i].type === 'checkbox') {
+        this[$customerInputs[i].name].value = $customerInputs[i].checked ? 'on' : '';
+      } else {
+        this[$customerInputs[i].name].value = $customerInputs[i].value
+      }
+  }
   });
 
   // Setup autocomplete for customers.
