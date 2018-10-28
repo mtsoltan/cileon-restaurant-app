@@ -2,7 +2,7 @@ Listed here are the gitignored dependency files that should be copied over from 
 Environment specific configuration files are also listed here, with the examples needed to recreate them listed in parentheses beside them.
 
 application/config/private.php (Recreate from private.php.production following private.php.example)
-codeignite/
+codeigniter/
 public/
 |   environment.php (Recreate from environment.php.production following environment.php.example)
 |   assets

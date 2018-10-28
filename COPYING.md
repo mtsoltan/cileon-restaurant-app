@@ -1,0 +1,2 @@
+This repository contains code that is fully written by me, but isn't owned by me. I am allowed to post this repository for illustrative purposes.
+Please do not copy this software without permission from the owner.

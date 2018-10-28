@@ -3,7 +3,7 @@ desktop.ini
 Thumbs.db
 
 # Unwanted Folders.
-codeignite/
+codeigniter/
 # Minified files.
 **/*.min.js
 **/*.min.css
