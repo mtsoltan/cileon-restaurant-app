@@ -33,8 +33,12 @@ $(document).ready(function(){
     let $customerInputs = $('#customer-fields input, #customer-fields textarea');
     for (let i = 0; i < $customerInputs.length; i++) {
       console.log(this[$customerInputs[i].name]);
-      this[$customerInputs[i].name].value = $customerInputs[i].value
-    }
+      if ($customerInputs[i].type === 'checkbox') {
+        this[$customerInputs[i].name].value = $customerInputs[i].checked ? 'on' : '';
+      } else {
+        this[$customerInputs[i].name].value = $customerInputs[i].value
+      }
+  }
   });
 
   // Setup autocomplete for customers.
@@ -70,16 +74,16 @@ $(document).ready(function(){
 
 // Recalculates the tax on the change of tax or one of the prices / qtys.
 function recalculateTax(ev) {
-  var sum = 0;
+  var sum = 0, tax = 0;
   var rows = $('#purchased_products .row');
   console.log(rows);
   for(var i = 0; i < rows.length; i++){
     cProduct = products[$('.product_assigned_id', rows[i]).val()];
     sum += (cProduct.price * (1 + cProduct.tax / 100)) * $('.product_quantity', rows[i]).val();
+    tax += (cProduct.price * cProduct.tax / 100) * $('.product_quantity', rows[i]).val();
   }
-  var tax = sum * $('#tax').val() / 100;
   $('#ttax').text(tax.toFixed(2));
-  $('#tprice').text((sum + tax).toFixed(2));
+  $('#tprice').text(sum.toFixed(2));
 }
 
 //Checks the already-built lookup for a customer, and fills fields with their data.
