@@ -1,5 +1,6 @@
 # Cileon Restaurant App
 A lightweight web application to administrate restaurants, written in PHP on top of CodeIgniter framework.
+The application works in English and is being translated to Dutch.
 
 To run this code:
 1. Clone this repository.
